@@ -1,17 +1,17 @@
-// Firebase設定ファイル
-// Firebaseコンソールで取得した設定をここに貼り付けてください。
-// このままではログイン・保存は動きません。公開サイトの表示はできます。
+// NINJA AIRS Firebase設定
+// このファイルは公開されても問題ありません。セキュリティはFirebaseルールと管理者メールで制御します。
 
 export const firebaseConfig = {
-  apiKey: "PASTE_YOUR_API_KEY",
-  authDomain: "PASTE_YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "PASTE_YOUR_PROJECT_ID",
-  storageBucket: "PASTE_YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "PASTE_YOUR_SENDER_ID",
-  appId: "PASTE_YOUR_APP_ID"
+  apiKey: "AIzaSyCCq01D3msppVIoxvOqkN_Q31KOfPWRCCo",
+  authDomain: "ninja-airs.firebaseapp.com",
+  projectId: "ninja-airs",
+  storageBucket: "ninja-airs.firebasestorage.app",
+  messagingSenderId: "211814387448",
+  appId: "1:211814387448:web:4617f2d881cdf6d8cdb50d",
+  measurementId: "G-JGM15WPMVJ"
 };
 
-// 管理者として許可するメールアドレス
+// 初回登録・ログインを許可する管理者メール
 export const ADMIN_EMAILS = [
-  "your-email@example.com"
+  "xxxmastsxxx@gmail.com"
 ];

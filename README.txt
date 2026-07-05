@@ -1,31 +1,35 @@
-NINJA AIRS Firebaseログイン管理付きサイト
+NINJA AIRS CMS 最適化版
 
-【入っているもの】
-- index.html：公開ホームページ
-- admin.html：管理画面（ログイン必須）
-- firebase-config.js：Firebase設定ファイル
-- firestore.rules：Firestoreセキュリティルール
-- storage.rules：Storageセキュリティルール
-- assets/：初期画像・ロゴ
+変更内容:
+- TOPロゴ横の「NINJA AIRS U15」から U15 を削除し「NINJA AIRS」に変更
+- 「NINJA AIRSは、勝つためだけのチームではありません。」を削除し、見出しを変更
+- FAQの「初心者でも参加できますか？」を削除
+- 活動内容3項目を画像・タイトル・説明文・アイコン編集対応
+- DIARY/活動日記を編集対応
+  - 日付
+  - タイトル
+  - 本文
+  - 画像挿入・差し替え
+  - 追加・削除
+- 活動イメージ5枚を画像差し替え対応
+- LINEリンクは直接LINEへ遷移
+- Firebase設定済み
 
-【できること】
-- 公開サイトは誰でも閲覧可能
-- admin.html はFirebase Authでログイン
-- 管理者メールのみ編集可能
-- 活動イメージ5枚の写真を管理画面から差し替え
-- トップコピー、説明文、LINE URL、メールアドレスを変更
+アップロード方法:
+GitHubの既存リポジトリ NINJAAIRSU15 に、このZIPの中身を上書きアップロードしてください。
 
-【初回設定】
-1. Firebaseでプロジェクトを作成
-2. Authentication → メール/パスワードを有効化
-3. Authentication → Users で管理者ユーザーを作成
-4. Firestore Database を作成
-5. Storage を作成
-6. firebase-config.js にFirebase設定を貼り付け
-7. firebase-config.js の ADMIN_EMAILS に管理者メールを入れる
-8. firestore.rules と storage.rules の your-email@example.com を管理者メールに変更
-9. Firebase Hosting またはNetlify等にアップロード
+管理画面:
+https://ninja326.github.io/NINJAAIRSU15/admin.html
 
-【注意】
-- firebase-config.js は公開されても問題ない設計ですが、Firestore/Storage Rulesで必ず書き込み制限してください。
-- 管理画面のURLを知っていても、管理者メールでログインしない限り保存できない設計です。
+公開サイト:
+https://ninja326.github.io/NINJAAIRSU15/
+
+Firebaseで必要な設定:
+1. Authentication > ログイン方法 > メール/パスワード を有効化
+2. Firestore Database を作成
+3. Storage を作成
+4. firestore.rules の内容を Firestore ルールへ貼り付けて公開
+5. storage.rules の内容を Storage ルールへ貼り付けて公開
+6. Authentication > Settings > 承認済みドメイン に ninja326.github.io を追加
+
+- メールアドレス: xxxmastsxxx@gmail.com
