@@ -1,33 +1,49 @@
-NINJA AIRS CMS Version 9 - GitHub画像自動アップロード版
+NINJA AIRS CMS 完成版 v10
 
 公開ページ:
 - index.html
 
 管理画面:
 - admin.html
-- https://ninja326.github.io/NINJAAIRSU15/admin.html
 
-特徴:
-- Firebase Storageは不要です。
+公開URL:
+https://ninja326.github.io/NINJAAIRSU15/
+
+管理URL:
+https://ninja326.github.io/NINJAAIRSU15/admin.html
+
+重要:
+- Firebase Storageは使いません。
 - 画像はGitHubの assets/uploads/ に保存します。
-- Firestoreには画像URLと文章だけを保存します。
-- Firestoreの1MB制限に引っかからない構成です。
-- 管理画面に「画像管理」タブを追加しています。
-- GitHub Tokenを入れると、管理画面から画像を直接GitHubへアップロードできます。
-- トップ画像、活動内容、活動日記、活動イメージ、スポンサー画像にURLを設定できます。
-- 画像ごとに拡大率・横位置・縦位置を調整できます。
-- 文章の改行表示に対応しています。
+- Firestoreには文章と画像URLだけ保存します。
+- そのため Firestore 1MB制限に画像で引っかかりません。
 
-アップロード方法:
-1. ZIPを解凍します。
-2. 中身をGitHubリポジトリ NINJAAIRSU15 に上書きアップロードします。
-3. GitHub Pagesの反映を待ちます。
-4. 管理画面を開き、Command + Shift + R で強制更新します。
+画像アップロード:
+1. GitHubでPersonal Access Tokenを作成
+2. 権限は対象リポジトリ NINJA326/NINJAAIRSU15 の Contents Read/Write のみにする
+3. 管理画面 > 画像管理 > GitHub Token に貼る
+4. Token設定を保存
+5. 画像をドラッグ&ドロップしてGitHubへアップロード
 
-GitHub Tokenについて:
-- GitHubの Settings > Developer settings > Personal access tokens から作成します。
-- repository contents の read/write 権限が必要です。
-- TokenはブラウザのlocalStorageに保存されます。公開サイトには保存されません。
+アップロード先:
+assets/uploads/
 
-画像URL例:
-https://ninja326.github.io/NINJAAIRSU15/assets/uploads/slide-01.jpg
+管理画面でできること:
+- 基本情報編集
+- トップ画像スライドショー編集
+- 活動内容編集
+- 活動日記編集
+- 活動イメージ編集
+- スケジュール編集
+- FAQ編集
+- スポンサー募集・スポンサー一覧編集
+- SEO編集
+- 画像の拡大率・横位置・縦位置調整
+- 画像管理からGitHubへ直接アップロード
+
+GitHubへアップロードするファイル:
+- index.html
+- admin.html
+- firebase-config.js
+- assets フォルダ
+- README.txt
