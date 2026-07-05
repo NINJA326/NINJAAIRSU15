@@ -1,4 +1,4 @@
-NINJA AIRS CMS 完成版 v10
+NINJA AIRS CMS 完成版 v11
 
 公開ページ:
 - index.html
@@ -47,3 +47,12 @@ GitHubへアップロードするファイル:
 - firebase-config.js
 - assets フォルダ
 - README.txt
+
+
+Version11 修正内容:
+- 旧Base64文字列データを読み込み時に自動変換して管理画面エラーを防止
+- トップ画像・活動内容・日記・活動イメージ・スポンサー画像の保存形式をURLオブジェクトへ統一
+- 選択した写真のプレビュー表示を追加
+- GitHubアップロード後の写真一覧プレビューをdownload_urlで安定表示
+- URLコピー・表示ボタンを追加
+- Firestoreには画像本体ではなくURLだけ保存
