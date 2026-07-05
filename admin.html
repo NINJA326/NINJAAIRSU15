@@ -15,7 +15,7 @@
 <div class="panel" id="gallery"><h2>活動イメージ写真</h2><div class="three" id="galleryEditor"></div></div>
 <div class="panel" id="faq"><div class="top"><div><h2>FAQ</h2><p class="muted small">追加・編集・削除できます。</p></div><button class="btn btnGrad" id="addFaq">＋ FAQ追加</button></div><div class="three" id="faqEditor"></div></div>
 <div class="panel"><h2>アクセス数</h2><p class="muted">公開サイトの閲覧数は公開ページとFirebaseの site/stats に表示されます。</p><div id="statsBox" class="notice warn">読み込み中</div></div>
-<div class="panel" id="save"><h2>保存</h2><button class="btn btnGrad" id="saveBtn">公開サイトへ保存</button><div id="saveMsg"></div></div>
+<div class="panel" id="save"><h2>保存</h2><button class="btn btnGrad" id="saveBtn" type="button">公開サイトへ保存</button><div id="saveMsg"></div><div id="debugMsg" class="muted small" style="margin-top:10px"></div></div>
 </div>
 <script type="module">
 import { firebaseConfig, ADMIN_EMAILS } from './firebase-config.js';
@@ -32,6 +32,38 @@ let mode='login';loginTab.onclick=()=>setMode('login');registerTab.onclick=()=>s
 const {initializeApp}=await import('https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js');const {getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut,onAuthStateChanged}=await import('https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js');const {getFirestore,doc,getDoc,setDoc,onSnapshot,serverTimestamp}=await import('https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js');const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getFirestore(app);
 loginBtn.onclick=async()=>{try{await signInWithEmailAndPassword(auth,email.value.trim(),password.value)}catch(e){msg('loginMsg','ログインできません。','bad')}};registerBtn.onclick=async()=>{try{if(!isAdmin(email.value.trim())){msg('loginMsg','管理者メールではありません。','bad');return}await createUserWithEmailAndPassword(auth,email.value.trim(),password.value)}catch(e){msg('loginMsg','登録できません。既に登録済みの場合はログインしてください。','bad')}};logoutBtn.onclick=()=>signOut(auth);
 onAuthStateChanged(auth,async user=>{if(!user){login.classList.remove('hidden');app.classList.add('hidden');return}if(!isAdmin(user.email)){await signOut(auth);msg('loginMsg','管理者として許可されていません。','bad');return}userBadge.textContent=user.email;login.classList.add('hidden');app.classList.remove('hidden');try{const s=await getDoc(doc(db,'site','content'));fill(s.exists()?s.data():defaults)}catch(e){fill(defaults);msg('saveMsg','Firestoreを確認してください。','warn')}onSnapshot(doc(db,'site','stats'),s=>{const v=s.data()||{};statsBox.textContent=`累計 ${v.total||0} views ／ 今月 ${v.month||0} views`})});
-function setBtn(t,cls){saveBtn.className='btn btnGrad '+(cls||'');saveBtn.textContent=t}
-saveBtn.onclick=async()=>{try{setBtn('保存中...');read();if(files.seo)data.seoImage=await fileToDataUrl(files.seo,900,.62);for(let i=0;i<data.slides.length;i++)if(files[`slides-${i}`])data.slides[i]=await fileToDataUrl(files[`slides-${i}`],1000,.62);for(let i=0;i<data.program.length;i++)if(files[`program-${i}`])data.program[i].url=await fileToDataUrl(files[`program-${i}`],900,.62);for(let i=0;i<data.diary.length;i++)if(files[`diary-${i}`])data.diary[i].images=[await fileToDataUrl(files[`diary-${i}`],900,.62)];for(let i=0;i<data.gallery.length;i++)if(files[`gallery-${i}`])data.gallery[i].url=await fileToDataUrl(files[`gallery-${i}`],900,.62);await setDoc(doc(db,'site','content'),{...data,updatedAt:serverTimestamp()},{merge:true});files={};fill(data);setBtn('✓ 保存しました','saved');msg('saveMsg','保存しました。公開サイトに反映されます。');setTimeout(()=>setBtn('公開サイトへ保存'),1800)}catch(e){console.error(e);setBtn('保存失敗','error');msg('saveMsg','保存できません。Firestoreルール・画像サイズを確認してください。','bad');setTimeout(()=>setBtn('公開サイトへ保存'),2200)}};
+function setBtn(t,cls){const b=document.getElementById('saveBtn'); if(!b) return; b.className='btn btnGrad '+(cls||''); b.textContent=t;}
+function debug(t){const d=document.getElementById('debugMsg'); if(d) d.textContent=t || '';}
+async function saveSiteContent(){
+  const b=document.getElementById('saveBtn');
+  try{
+    if(b) b.disabled=true;
+    setBtn('保存中...');
+    debug('保存処理を開始しました。画像が多い場合は少し時間がかかります。');
+    read();
+    if(files.seo)data.seoImage=await fileToDataUrl(files.seo,900,.62);
+    for(let i=0;i<data.slides.length;i++)if(files[`slides-${i}`])data.slides[i]=await fileToDataUrl(files[`slides-${i}`],1000,.62);
+    for(let i=0;i<data.program.length;i++)if(files[`program-${i}`])data.program[i].url=await fileToDataUrl(files[`program-${i}`],900,.62);
+    for(let i=0;i<data.diary.length;i++)if(files[`diary-${i}`])data.diary[i].images=[await fileToDataUrl(files[`diary-${i}`],900,.62)];
+    for(let i=0;i<data.gallery.length;i++)if(files[`gallery-${i}`])data.gallery[i].url=await fileToDataUrl(files[`gallery-${i}`],900,.62);
+    debug('Firestoreへ保存中...');
+    await setDoc(doc(db,'site','content'),{...data,updatedAt:serverTimestamp()},{merge:true});
+    files={};
+    fill(data);
+    setBtn('✓ 保存しました','saved');
+    msg('saveMsg','保存しました。公開サイトに反映されます。');
+    debug('完了：公開サイトを再読み込みして確認してください。');
+    setTimeout(()=>{setBtn('公開サイトへ保存'); if(b) b.disabled=false;},1800);
+  }catch(e){
+    console.error(e);
+    const code=e && (e.code || e.name || 'error');
+    const detail=e && (e.message || String(e));
+    setBtn('保存失敗','error');
+    msg('saveMsg',`保存できません。原因: ${code}<br>${detail}`,'bad');
+    debug('Firestoreルール、ログイン状態、画像サイズを確認してください。');
+    setTimeout(()=>{setBtn('公開サイトへ保存'); if(b) b.disabled=false;},2600);
+  }
+}
+const saveButton=document.getElementById('saveBtn');
+if(saveButton){saveButton.addEventListener('click',saveSiteContent);}
 </script></body></html>
