@@ -1,32 +1,15 @@
-NINJA AIRS CMS 完全版 v2
+NINJA AIRS CMS v3 stable
 
-公開ページ:
-- index.html
+公開ページ: index.html
+管理画面: admin.html
+管理画面URL: https://ninja326.github.io/NINJAAIRSU15/admin.html
 
-管理画面:
-- admin.html
+特徴:
+- Firebase Firestoreのみ使用（Storage不要）
+- 管理画面が真っ白にならないようエラー表示を実装
+- 保存ボタンの反応あり
+- トップスライド、活動内容、活動日記、活動イメージ、スケジュール、FAQ、SEO、募集状況を編集可能
+- 画像は圧縮してBase64としてFirestoreへ保存
 
-管理画面URL:
-https://ninja326.github.io/NINJAAIRSU15/admin.html
-
-必要なFirebase設定:
-1. Authentication > ログイン方法 > メール/パスワードを有効化
-2. Authentication > 設定 > 承認済みドメインに ninja326.github.io を追加
-3. Firestore Databaseを作成
-4. Firestore > ルールに firestore.rules の内容を貼り付けて公開
-
-Storage不要:
-画像はFirestoreにBase64圧縮保存します。
-
-主な機能:
-- トップ画像スライドショー 5〜10枚
-- 管理画面で順番変更
-- 選手募集状況切替
-- スケジュール管理
-- スタッフ募集
-- FAQ追加・編集
-- SEO設定
-- アクセス数表示
-- 活動内容画像編集
-- 活動日記画像付き投稿
-- 保存ボタン反応・エラー表示
+アップロード方法:
+ZIPを解凍し、中身をGitHubへ上書きアップロードしてください。
