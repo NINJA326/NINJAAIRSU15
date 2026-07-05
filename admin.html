@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NINJA AIRS CMS 管理画面</title>
+<title>NINJA AIRS 管理画面</title>
 <style>
 :root{--ink:#111217;--muted:#667085;--line:#e6e8ee;--bg:#f6f7fb;--dark:#08090d;--pink:#ff3bad;--blue:#18b9ff;--grad:linear-gradient(100deg,var(--pink),var(--blue));--ok:#12b76a;--bad:#d92d20;--warn:#f79009}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Noto Sans JP",Meiryo,sans-serif;line-height:1.7}.wrap{max-width:1180px;margin:auto;padding:22px}.panel{background:#fff;border:1px solid var(--line);border-radius:24px;padding:24px;margin:16px 0;box-shadow:0 16px 42px rgba(0,0,0,.05)}h1{font-size:2rem;margin:.2em 0}h2{font-size:1.35rem}.muted{color:var(--muted);font-weight:800}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.field{margin:12px 0}label{display:block;font-weight:900;margin-bottom:6px}input,textarea,select{width:100%;font:inherit;border:1px solid var(--line);border-radius:14px;padding:12px 14px;background:#fff}textarea{min-height:110px}.btn{border:0;border-radius:999px;background:var(--dark);color:#fff;font-weight:1000;padding:12px 18px;cursor:pointer;text-decoration:none;display:inline-flex;gap:8px;align-items:center;justify-content:center}.btn.grad{background:var(--grad)}.btn.light{background:#fff;color:var(--dark);border:2px solid var(--dark)}.btn.red{background:#fee4e2;color:#b42318}.btn:active{transform:scale(.97)}.btn[disabled]{opacity:.65;cursor:not-allowed}.actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.hidden{display:none!important}.tabs{position:sticky;top:0;z-index:10;background:rgba(246,247,251,.92);backdrop-filter:blur(12px);padding:10px 0;display:flex;gap:8px;flex-wrap:wrap}.tab{border:1px solid var(--line);background:#fff;border-radius:999px;padding:10px 15px;font-weight:1000;cursor:pointer}.tab.active{background:var(--dark);color:#fff}.top{display:flex;justify-content:space-between;gap:16px;align-items:center}.badge{display:inline-flex;padding:4px 10px;border-radius:999px;background:#eef2ff;color:#3445a8;font-size:.85rem}.msg{padding:12px 14px;border-radius:14px;background:#ecfdf3;color:#027a48;font-weight:900;margin:12px 0}.msg.bad{background:#fff1f3;color:#b42318}.msg.warn{background:#fff8e6;color:#9a5b00}.item{border:1px solid var(--line);border-radius:20px;background:#fff;padding:16px;margin:12px 0}.item-head{display:flex;justify-content:space-between;align-items:center;gap:10px}.preview{width:100%;height:100%;object-fit:cover;display:block;transform-origin:center center;user-select:none;pointer-events:none}
 .cropbox{width:320px;max-width:100%;height:180px;overflow:hidden;background:#eef1f5;border-radius:14px;margin:8px 0;border:1px solid var(--line);position:relative}
@@ -27,7 +27,7 @@
 
   <div id="app" class="hidden">
     <div class="top">
-      <div><h1>NINJA AIRS CMS <span class="badge" id="userBadge"></span></h1><p class="muted">画像はFirestoreに圧縮保存します。Storage不要です。</p></div>
+      <div><h1>NINJA AIRS 管理画面 <span class="badge" id="userBadge"></span></h1><p class="muted">画像はFirestoreに圧縮保存します。Storage不要です。</p></div>
       <div class="actions"><a class="btn light" href="index.html" target="_blank">公開サイトを見る</a><button class="btn" id="logoutBtn">ログアウト</button></div>
     </div>
     <div class="tabs" id="tabs"></div>
