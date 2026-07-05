@@ -4,9 +4,7 @@ service cloud.firestore {
     function isAdmin() {
       return request.auth != null && request.auth.token.email in ["xxxmastsxxx@gmail.com"];
     }
-    match /site/{docId} {
-      allow read: if true;
-      allow write: if isAdmin();
-    }
+    match /site/content { allow read: if true; allow write: if isAdmin(); }
+    match /site/stats { allow read: if true; allow write: if true; }
   }
 }

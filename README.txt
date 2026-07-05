@@ -1,4 +1,4 @@
-NINJA AIRS Firebase管理画面付きサイト（Firestore画像保存版）
+NINJA AIRS CMS Ver.1.0
 
 公開ページ:
 - index.html
@@ -6,32 +6,26 @@ NINJA AIRS Firebase管理画面付きサイト（Firestore画像保存版）
 管理画面:
 - admin.html
 
+今回追加:
+- 保護者専用ページ削除
+- 「私たちについて」→「NINJA AIRS U15について」
+- トップ画像スライドショー 5〜10枚（管理画面で追加・削除・並び替え）
+- 選手募集状況（募集中・キャンセル待ち・募集停止）
+- スケジュール管理（カレンダー形式）
+- スタッフ募集
+- FAQ追加・編集・削除
+- SEO設定（タイトル・説明文・OGP画像）
+- アクセス数（閲覧数）表示
+- 全体文章を管理画面から編集可能
+- Firestoreのみで画像保存（Storage不要）
+
+アップロード:
+GitHubにZIPを解凍した中身をすべて上書きアップロードしてください。
+
 管理画面URL例:
 https://ninja326.github.io/NINJAAIRSU15/admin.html
 
-設定済み:
-- Firebase config入力済み
-- 管理者メール: xxxmastsxxx@gmail.com
-- LINEリンク: https://line.me/ti/p/i7YQJwh_U2
-- メール: xxxmastsxxx@gmail.com
-
-この版の特徴:
-- Firebase Storageは不要です。
-- 画像は管理画面で自動圧縮し、Firestoreへ保存します。
-- Spark無料プランのまま運用できます。
-
-Firebaseで必要な設定:
-1. Authentication > ログイン方法 > メール/パスワード を有効化
-2. Firestore Database を作成
-3. Authentication > Settings > 承認済みドメイン に ninja326.github.io を追加
-
-初回利用:
-1. /admin.html を開く
-2. 「初回管理者登録」を押す
-3. xxxmastsxxx@gmail.com と好きなパスワードを入力
-4. 登録後、管理画面で写真や文言・活動日記を変更
-5. 「公開サイトへ保存」を押す
-
-注意:
-- 大量・高画質写真を何十枚も保存する場合はFirestore容量に注意してください。
-- 通常の活動写真・日記数件程度ならこの構成で運用しやすいです。
+Firebase設定:
+- Authentication > メール/パスワード 有効
+- Firestore Database 有効
+- firestore.rules の内容をFirestoreルールへ貼り付けて公開
