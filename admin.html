@@ -41,7 +41,8 @@
       <div class="field"><label>お知らせ一行</label><input id="newsLine"></div>
       <div class="field"><label>LINE URL</label><input id="lineUrl"></div>
       <div class="field"><label>メールアドレス</label><input id="mail"></div>
-      <div class="field"><label>スタッフ募集 文言</label><textarea id="staffText"></textarea></div>
+      <div class="field"><label>スタッフ募集 文言（改行反映）</label><textarea id="staffText"></textarea></div>
+      <div class="field"><label>スポンサー募集 文言（改行反映）</label><textarea id="sponsorText"></textarea></div>
       <div class="field"><label>活動日記 説明文</label><textarea id="diaryLead"></textarea></div>
     </div></section>
     <section class="panel tabsec hidden" id="slides"><h2>トップ画像スライドショー</h2><p class="muted">5〜10枚推奨。↑↓で順番変更できます。</p><div id="slideList"></div><button class="btn grad" id="addSlide">＋ トップ画像追加</button></section>
@@ -80,6 +81,7 @@ try{
     programLead:'通常練習、スキルトレーニング、ゲーム、遠征、交流戦、個別課題への取り組みを行います。',
     diaryLead:'練習や遠征、試合での成長をすぐに見られるように、日々の活動を記録します。',
     staffText:'一緒に選手の成長を支えていただけるスタッフを募集しています。',
+    sponsorText:'NINJA AIRSの活動を応援してくださるスポンサーを募集しています。\n地域の子どもたちの成長と挑戦を、一緒に支えていただける企業・個人の方はお問い合わせください。',
     lineUrl:'https://line.me/ti/p/i7YQJwh_U2', mail:'xxxmastsxxx@gmail.com', newsLine:'新チーム始動！無料体験受付中！', recruitStatus:'募集中',
     seoTitle:'NINJA AIRS｜滋賀県大津市のU15バスケットボールクラブ', seoDescription:'NINJA AIRSは滋賀県大津市を中心に活動するU15バスケットボールクラブです。主体性・判断力・基礎技術を育てます。', ogpImage:img('ninja-airs-logo.png'), views:0,
     slides:[img('activity-01-ensei.jpeg'),img('activity-04-circle.jpeg'),img('activity-05-practice.jpeg')],
@@ -98,7 +100,7 @@ try{
   const tabs=[['basic','基本情報'],['slides','トップ画像'],['program','活動内容'],['diary','活動日記'],['gallery','活動イメージ'],['schedule','スケジュール'],['faq','FAQ'],['seo','SEO・設定'],['saveArea','保存']];
   $('tabs').innerHTML=tabs.map(([id,txt],i)=>`<button class="tab ${i===0?'active':''}" data-tab="${id}">${txt}</button>`).join('');
   qsa('.tab').forEach(t=>t.addEventListener('click',()=>{qsa('.tab').forEach(x=>x.classList.remove('active'));t.classList.add('active');qsa('.tabsec').forEach(sec=>sec.classList.add('hidden'));$(t.dataset.tab).classList.remove('hidden');}));
-  function setFields(){['heroCopy','heroLead','aboutTitle','aboutText','programLead','diaryLead','staffText','lineUrl','mail','newsLine','recruitStatus','seoTitle','seoDescription','views'].forEach(id=>{$(id).value=data[id]??''});$('ogpPreview').src=imageUrl(data.ogpImage)||'';}
+  function setFields(){['heroCopy','heroLead','aboutTitle','aboutText','programLead','diaryLead','staffText','sponsorText','lineUrl','mail','newsLine','recruitStatus','seoTitle','seoDescription','views'].forEach(id=>{$(id).value=data[id]??''});$('ogpPreview').src=imageUrl(data.ogpImage)||'';}
   function controls(arr,i){return `<div class="actions"><button class="btn light" data-act="up" data-arr="${arr}" data-i="${i}">↑</button><button class="btn light" data-act="down" data-arr="${arr}" data-i="${i}">↓</button><button class="btn red" data-act="del" data-arr="${arr}" data-i="${i}">削除</button></div>`;}
   function imageValue(v){return (typeof v==='string')?{url:v,scale:1,x:0,y:0}:(v||{url:'',scale:1,x:0,y:0});}
   function imageUrl(v){return imageValue(v).url||'';}
@@ -115,7 +117,7 @@ try{
   function renderFaq(){$('faqList').innerHTML=data.faq.map((f,i)=>`<div class="item"><div class="item-head"><b>FAQ ${i+1}</b>${controls('faq',i)}</div><div class="field"><label>質問</label><input data-edit="faq.${i}.q" value="${esc(f.q)}"></div><div class="field"><label>回答</label><textarea data-edit="faq.${i}.a">${esc(f.a)}</textarea></div></div>`).join('');}
   function setPath(path,val){const parts=path.split('.');let o=data;for(let i=0;i<parts.length-1;i++)o=o[parts[i]];o[parts.at(-1)]=val;}
   function bindDynamic(){qsa('[data-edit]').forEach(el=>el.oninput=()=>setPath(el.dataset.edit,el.value));qsa('[data-file]').forEach(el=>el.onchange=async()=>{if(!el.files[0])return;message('saveMsg','画像を圧縮中です…','warn');const url=await fileToDataURL(el.files[0]);const i=+el.dataset.i,t=el.dataset.file;const obj=imageValue(url); if(t==='slide')data.slides[i]=obj;if(t==='program')data.programs[i].image=obj;if(t==='gallery')data.gallery[i].url=obj;if(t==='diary')data.diary[i].image=obj;renderAll();message('saveMsg','画像を反映しました。拡大・位置調整後、最後に保存してください。')});qsa('[data-crop]').forEach(el=>el.oninput=()=>{const obj=ensureImageObject(el.dataset.kind,+el.dataset.i); obj[el.dataset.crop]=Number(el.value); renderAll();});qsa('[data-resetcrop]').forEach(el=>el.onclick=()=>{const obj=ensureImageObject(el.dataset.resetcrop,+el.dataset.i); obj.scale=1; obj.x=0; obj.y=0; renderAll();});qsa('[data-act]').forEach(b=>b.onclick=()=>{const arr=data[b.dataset.arr],i=+b.dataset.i;if(b.dataset.act==='up'&&i>0)[arr[i-1],arr[i]]=[arr[i],arr[i-1]];if(b.dataset.act==='down'&&i<arr.length-1)[arr[i+1],arr[i]]=[arr[i],arr[i+1]];if(b.dataset.act==='del')arr.splice(i,1);renderAll();});}
-  function collectBasics(){['heroCopy','heroLead','aboutTitle','aboutText','programLead','diaryLead','staffText','lineUrl','mail','newsLine','recruitStatus','seoTitle','seoDescription'].forEach(id=>data[id]=$(id).value);data.views=Number($('views').value||0);data=normalize(data);}
+  function collectBasics(){['heroCopy','heroLead','aboutTitle','aboutText','programLead','diaryLead','staffText','sponsorText','lineUrl','mail','newsLine','recruitStatus','seoTitle','seoDescription'].forEach(id=>data[id]=$(id).value);data.views=Number($('views').value||0);data=normalize(data);}
   $('loginMode').onclick=()=>{mode='login';$('authBtn').textContent='ログイン'};$('registerMode').onclick=()=>{mode='register';$('authBtn').textContent='初回管理者登録'};
   $('addSlide').onclick=()=>{if(data.slides.length>=10)return alert('トップ画像は10枚までです');data.slides.push(img('activity-01-ensei.jpeg'));renderAll()};
   $('addGallery').onclick=()=>{data.gallery.push({title:'新しい写真',url:img('activity-01-ensei.jpeg')});renderAll()};
