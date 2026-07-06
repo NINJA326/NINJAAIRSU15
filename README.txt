@@ -1,13 +1,13 @@
-NINJA AIRS CMS Version 20.13 COMPLETE
+NINJA AIRS CMS Version 20.14 COMPLETE
 
 修正内容:
-- 画像生成なし。HTML/CSSのみ修正。
-- 活動イメージの原型である5枚グリッドを復元。
-- クリック式を維持し、説明は右側ではなく下に固定表示。
-- カーソル移動で説明が切り替わらない。
-- 画像は5項目すべて表示。
-- 選択中の画像はピンクの枠で判別可能。
-- 説明文は左寄せで全文表示。
+- 画像生成なし。HTML/CSS/JSのみ修正。
+- 活動イメージ5項目を維持。
+- クリックした画像の説明文を右側に固定表示。
+- カーソル移動では切り替わらない。
+- 説明文が表示されない問題を修正。
+- 活動日記カードをコンパクト化。
+- 活動日記の表示件数を最大12件へ変更。
 
 アップロードするファイル:
 - index.html
@@ -17,4 +17,4 @@ NINJA AIRS CMS Version 20.13 COMPLETE
 - README.txt
 
 確認URL:
-https://ninja326.github.io/NINJAAIRSU15/index.html?ver=20-13
+https://ninja326.github.io/NINJAAIRSU15/index.html?ver=20-14
