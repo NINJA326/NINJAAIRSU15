@@ -1,18 +1,15 @@
-NINJA AIRS CMS Version 20.8 HALF-HOVER COMPLETE
+NINJA AIRS CMS Version 20.9 COMPLETE
 
 修正内容:
 - 画像生成なし。HTML/CSSのみ修正。
-- 活動イメージのホバー表示を画面いっぱいから画面半分へ変更。
-- 左の大きいカードにカーソルを合わせた場合は右半分へ説明表示。
-- 右側カードにカーソルを合わせた場合は左半分へ説明表示。
-- 背景黒は70%。
+- 活動イメージのホバー表示が画面から切れないよう修正。
+- ホバー時カードは画面いっぱいではなく、約半分の幅で表示。
+- 左の大きいカードは右側に表示。右側カードは左側に表示。
 - 文章は左寄せ。
-- タイトルを大きく、下線付きで見やすく表示。
+- 背景黒は70%。
 - 写真ズームは1.02倍。
-- フェード時間は0.65秒で、よりふわっと表示。
-- カードは少し小さめに調整。
-- 説明文は半画面内で全文確認可能。長文時はパネル内スクロール。
-- 既存機能は維持。
+- フェードはよりふわっと表示。
+- タイトルを大きく、下線付きでわかりやすく表示。
 
 アップロードするファイル:
 - index.html
@@ -22,5 +19,4 @@ NINJA AIRS CMS Version 20.8 HALF-HOVER COMPLETE
 - README.txt
 
 確認URL:
-https://ninja326.github.io/NINJAAIRSU15/index.html?ver=20-8
-https://ninja326.github.io/NINJAAIRSU15/admin.html?ver=20-8
+https://ninja326.github.io/NINJAAIRSU15/index.html?ver=20-9
