@@ -55,7 +55,7 @@
 @media(max-width:900px){.gallery{grid-auto-rows:300px!important}.photo.big{grid-row:span 1}.photoOverlay{padding:30px 24px!important}.photoTitle{font-size:1.35rem!important}.photoDesc{font-size:.92rem!important;line-height:1.75!important}.photoCaption{left:18px!important;bottom:18px!important;max-width:calc(100% - 36px)!important}}
 
 
-/* v20.5 optimized gallery full hover: title always visible, description only on hover/tap, no close button */
+/* v20.4 optimized gallery full hover: title always visible, description only on hover/tap, no close button */
 .gallery{grid-auto-rows:280px!important;gap:18px!important}
 .photo{position:relative!important;cursor:pointer!important;background:#eef1f5!important;box-shadow:0 16px 38px rgba(16,24,40,.08)!important;transition:transform .25s ease,box-shadow .25s ease!important;overflow:hidden!important;border-radius:26px!important}
 .photo.big{grid-row:span 2!important}
@@ -74,7 +74,7 @@
 @media(max-width:900px){.gallery{grid-template-columns:1fr!important;grid-auto-rows:300px!important}.photo.big{grid-row:span 1!important}.photoOverlay{padding:28px 24px!important}.photoTitle{font-size:1.35rem!important}.photoDesc{font-size:.92rem!important;line-height:1.75!important}.photoCaption{font-size:.95rem!important}}
 
 
-/* v20.5 gallery hover full-screen reading mode
+/* v20.4 gallery hover full-screen reading mode
    - normal: title only
    - hover/tap: card expands to almost full browser area and shows full description
    - mouse leave / tap again: returns to original */
@@ -98,7 +98,7 @@ body:has(.photo:hover),body:has(.photo.open){overflow:hidden}
 @media(max-width:900px){.gallery{grid-template-columns:1fr!important;grid-auto-rows:300px!important}.photo.big{grid-row:span 1!important}.photo:hover,.photo.open{left:14px!important;right:14px!important;top:86px!important;bottom:18px!important}.photoOverlay{padding:28px 24px!important;align-items:flex-start!important}.photoTitle{font-size:1.8rem!important}.photoDesc{font-size:1.05rem!important;line-height:1.75!important}.photoCaption{font-size:.95rem!important}}
 
 
-/* v20.5 gallery soft hover:ふわっと表示・少し小さめ */
+/* v20.4 gallery soft hover:ふわっと表示・少し小さめ */
 .gallery{grid-auto-rows:250px!important;gap:18px!important}
 .photo{transition:transform .42s cubic-bezier(.22,.61,.36,1),box-shadow .42s cubic-bezier(.22,.61,.36,1),border-radius .42s ease!important}
 .photo.big{grid-row:span 2!important}
@@ -119,26 +119,145 @@ body:has(.photo:hover),body:has(.photo.open){overflow:hidden}
 
 
 
-/* v20.5 half-screen reading panel: big image -> right text, small images -> left text */
-.gallery{grid-auto-rows:250px!important;gap:18px!important}
-.photo{position:relative!important;cursor:pointer!important;overflow:hidden!important;transform:none!important}
-.photo:hover,.photo.open{position:relative!important;left:auto!important;right:auto!important;top:auto!important;bottom:auto!important;width:auto!important;height:auto!important;z-index:10!important;grid-row:inherit!important;transform:translateY(-4px)!important;box-shadow:0 24px 58px rgba(16,24,40,.16)!important;border-radius:26px!important}
-.photo.big:hover,.photo.big.open{grid-row:span 2!important}
-.photo:hover .imgbox,.photo.open .imgbox{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;border-radius:0!important;aspect-ratio:auto!important;margin:0!important}
-.photo:hover .imgbox img,.photo.open .imgbox img{transform:scale(1.018)!important;filter:brightness(.94)!important}
-.photo:hover .photoCaption,.photo.open .photoCaption{opacity:0!important;transform:translateY(10px) scale(.98)!important;pointer-events:none!important}
-.photoOverlay{position:fixed!important;top:96px!important;bottom:36px!important;width:calc(50vw - 36px)!important;max-width:none!important;height:auto!important;z-index:9999!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:clamp(28px,4vw,64px)!important;background:rgba(7,8,13,.88)!important;color:#fff!important;border-radius:30px!important;box-shadow:0 30px 90px rgba(0,0,0,.35)!important;opacity:0!important;pointer-events:none!important;overflow-y:auto!important;transition:opacity .48s ease,transform .50s cubic-bezier(.22,.61,.36,1)!important}
-.photo.big .photoOverlay{left:calc(50vw + 18px)!important;right:18px!important;transform:translateX(24px) translateY(8px) scale(.985)!important}
-.photo:not(.big) .photoOverlay{left:18px!important;right:calc(50vw + 18px)!important;transform:translateX(-24px) translateY(8px) scale(.985)!important}
-.photo:hover .photoOverlay,.photo.open .photoOverlay{opacity:1!important;transform:translateX(0) translateY(0) scale(1)!important}
-.photoText{width:100%!important;max-width:760px!important;margin:auto!important;opacity:1!important;transform:none!important;padding:0!important}
-.photoTitle{display:block!important;width:auto!important;max-width:100%!important;margin:0 0 22px 0!important;padding:0 0 14px 0!important;color:#fff!important;font-size:clamp(1.9rem,3.1vw,4rem)!important;font-weight:1000!important;line-height:1.16!important;border-bottom:4px solid var(--pink)!important;text-shadow:0 3px 18px rgba(0,0,0,.65)!important}
-.photoDesc{display:block!important;white-space:pre-line!important;color:#fff!important;font-size:clamp(1.05rem,1.55vw,1.65rem)!important;line-height:1.95!important;font-weight:900!important;text-shadow:0 3px 18px rgba(0,0,0,.65)!important;max-height:none!important}
-body:has(.photo:hover),body:has(.photo.open){overflow:auto!important}
-@media(max-width:900px){.gallery{grid-template-columns:1fr!important;grid-auto-rows:280px!important}.photo.big{grid-row:span 1!important}.photo:hover,.photo.open{position:relative!important;transform:translateY(-3px)!important}.photoOverlay,.photo.big .photoOverlay,.photo:not(.big) .photoOverlay{left:18px!important;right:18px!important;top:92px!important;bottom:28px!important;width:auto!important;border-radius:24px!important;transform:translateY(18px) scale(.985)!important;padding:28px 24px!important}.photo:hover .photoOverlay,.photo.open .photoOverlay{transform:translateY(0) scale(1)!important}.photoTitle{font-size:1.75rem!important}.photoDesc{font-size:1rem!important;line-height:1.75!important}}
+/* v20.6 gallery clean readable hover - reset messy fixed hover */
+#gallery .gallery{
+  display:grid!important;
+  grid-template-columns:minmax(0,1.45fr) minmax(0,1fr) minmax(0,1fr)!important;
+  grid-auto-rows:220px!important;
+  gap:18px!important;
+  margin-top:34px!important;
+  align-items:stretch!important;
+}
+#gallery .photo{
+  position:relative!important;
+  inset:auto!important;
+  left:auto!important;right:auto!important;top:auto!important;bottom:auto!important;
+  width:auto!important;height:auto!important;
+  z-index:1!important;
+  grid-row:auto!important;
+  border-radius:28px!important;
+  overflow:hidden!important;
+  box-shadow:0 16px 38px rgba(16,24,40,.10)!important;
+  cursor:pointer!important;
+  transform:none!important;
+  transition:transform .32s ease,box-shadow .32s ease!important;
+  background:#eef1f5!important;
+}
+#gallery .photo.big{grid-row:span 2!important}
+#gallery .photo:hover,#gallery .photo.open{
+  position:relative!important;
+  inset:auto!important;left:auto!important;right:auto!important;top:auto!important;bottom:auto!important;
+  width:auto!important;height:auto!important;
+  z-index:5!important;
+  transform:translateY(-4px)!important;
+  box-shadow:0 24px 62px rgba(16,24,40,.22)!important;
+  border-radius:28px!important;
+}
+#gallery .photo:after{display:none!important}
+#gallery .photo .imgbox{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;height:100%!important;
+  margin:0!important;
+  border-radius:0!important;
+  aspect-ratio:auto!important;
+}
+#gallery .photo .imgbox img{
+  width:100%!important;height:100%!important;
+  object-fit:cover!important;
+  opacity:1!important;
+  filter:none!important;
+  transition:transform .45s ease,filter .35s ease!important;
+}
+#gallery .photo:hover .imgbox img,#gallery .photo.open .imgbox img{
+  transform:scale(1.04)!important;
+  filter:brightness(.62)!important;
+}
+#gallery .photoCaption{
+  position:absolute!important;
+  left:18px!important;right:auto!important;bottom:18px!important;
+  z-index:3!important;
+  display:inline-flex!important;
+  max-width:calc(100% - 36px)!important;
+  padding:10px 18px!important;
+  border-radius:999px!important;
+  background:rgba(7,8,13,.84)!important;
+  color:#fff!important;
+  font-size:1.02rem!important;
+  line-height:1.25!important;
+  font-weight:1000!important;
+  text-shadow:none!important;
+  backdrop-filter:blur(8px)!important;
+  opacity:1!important;
+  transform:none!important;
+  transition:opacity .25s ease,transform .25s ease!important;
+}
+#gallery .photo:hover .photoCaption,#gallery .photo.open .photoCaption{
+  opacity:0!important;
+  transform:translateY(8px)!important;
+}
+#gallery .photoOverlay{
+  position:absolute!important;
+  inset:0!important;
+  z-index:4!important;
+  display:flex!important;
+  align-items:flex-end!important;
+  justify-content:flex-start!important;
+  padding:26px!important;
+  background:linear-gradient(180deg,rgba(0,0,0,.22),rgba(0,0,0,.82))!important;
+  color:#fff!important;
+  opacity:0!important;
+  pointer-events:none!important;
+  overflow:auto!important;
+  transition:opacity .35s ease!important;
+}
+#gallery .photo:hover .photoOverlay,#gallery .photo.open .photoOverlay{opacity:1!important}
+#gallery .photoText{
+  width:100%!important;
+  max-width:100%!important;
+  margin:0!important;
+  padding:0!important;
+  opacity:0!important;
+  transform:translateY(16px)!important;
+  transition:opacity .35s ease .05s,transform .35s ease .05s!important;
+}
+#gallery .photo:hover .photoText,#gallery .photo.open .photoText{
+  opacity:1!important;
+  transform:translateY(0)!important;
+}
+#gallery .photoTitle{
+  display:block!important;
+  width:auto!important;max-width:100%!important;
+  margin:0 0 12px 0!important;
+  padding:0 0 10px 0!important;
+  border-bottom:3px solid var(--pink)!important;
+  color:#fff!important;
+  font-size:clamp(1.35rem,2.1vw,2rem)!important;
+  line-height:1.22!important;
+  font-weight:1000!important;
+  text-shadow:0 3px 16px rgba(0,0,0,.7)!important;
+}
+#gallery .photoDesc{
+  display:block!important;
+  white-space:pre-line!important;
+  color:#fff!important;
+  font-size:clamp(.95rem,1.15vw,1.08rem)!important;
+  line-height:1.8!important;
+  font-weight:900!important;
+  text-shadow:0 3px 16px rgba(0,0,0,.72)!important;
+  max-height:none!important;
+}
+body:has(#gallery .photo:hover),body:has(#gallery .photo.open){overflow:auto!important}
+@media(max-width:900px){
+  #gallery .gallery{grid-template-columns:1fr!important;grid-auto-rows:280px!important}
+  #gallery .photo.big{grid-row:span 1!important}
+  #gallery .photoOverlay{padding:24px!important}
+  #gallery .photoTitle{font-size:1.45rem!important}
+  #gallery .photoDesc{font-size:.95rem!important;line-height:1.7!important}
+}
 
 </style></head><body><script>
-/* Version20.5: remove old PWA/ServiceWorker caches so GitHub Pages always shows the newest HTML */
+/* Version20.6: remove old PWA/ServiceWorker caches so GitHub Pages always shows the newest HTML */
 (function(){
   try{
     if('serviceWorker' in navigator){

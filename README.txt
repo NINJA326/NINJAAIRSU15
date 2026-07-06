@@ -1,4 +1,4 @@
-NINJA AIRS CMS Version 20.5 HALF SCREEN TEXT
+NINJA AIRS CMS Version 20.6 GALLERY CLEAN FIX
 
 公開ページ:
 - index.html
@@ -12,15 +12,15 @@ https://ninja326.github.io/NINJAAIRSU15/
 管理URL:
 https://ninja326.github.io/NINJAAIRSU15/admin.html
 
-Version20.5 修正内容:
-- 活動イメージの文章表示を画面半分サイズへ変更
-- 左の大きい写真にカーソルを合わせると、右半分に文章を表示
-- 右側の小さい写真にカーソルを合わせると、左半分に文章を表示
-- 表示はパッと出ず、ふわっとフェード＋スライド表示
-- 写真自体は軽く浮く程度にして、読みやすさを優先
+Version20.6 修正内容:
+- 活動イメージの崩れをリセット
+- カーソル時の固定拡大表示を廃止
+- 通常時は整ったグリッド表示
+- カーソルを合わせた画像だけ暗くして説明文を見やすく表示
+- 文章は下からふわっと表示
 - カーソルを離すと自然に元へ戻る
-- スマホはタップで文章表示 / 再タップで戻る
-- 旧Service Worker / PWAキャッシュ対策を継続
+- スマホはタップで表示 / 再タップで戻る
+- 旧Service Worker / PWAキャッシュ対策を更新
 
 アップロードするファイル:
 - index.html
@@ -29,8 +29,10 @@ Version20.5 修正内容:
 - sw.js
 - README.txt
 
-アップロード後の確認:
+確認URL:
+https://ninja326.github.io/NINJAAIRSU15/index.html?ver=20-6
+
+アップロード後:
 1. GitHub Pages が緑チェックになるまで待つ
-2. 公開ページを開く
-   https://ninja326.github.io/NINJAAIRSU15/index.html?ver=20-5
+2. 確認URLを開く
 3. Cmd + Shift + R で強制再読み込み
