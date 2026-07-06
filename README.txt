@@ -1,13 +1,26 @@
-NINJA AIRS CMS Version 20.3.0 GALLERY FULL-HOVER FIX
+NINJA AIRS CMS Version 20.4 SOFT HOVER
 
-修正内容:
-- 活動イメージの通常表示はタイトルのみ
-- カーソルを合わせた時だけ説明文を表示
-- ホバー時はカードがブラウザ画面いっぱいに広がり、文章全文が読みやすく表示される
-- カーソルを離すと元の写真カードに戻る
+公開ページ:
+- index.html
+
+管理画面:
+- admin.html
+
+公開URL:
+https://ninja326.github.io/NINJAAIRSU15/
+
+管理URL:
+https://ninja326.github.io/NINJAAIRSU15/admin.html
+
+Version20.4 修正内容:
+- 活動イメージを少し小さめに調整
+- カーソルを合わせた時、説明文をふわっと表示
+- 黒背景を少し薄くして写真が見えるように調整
+- 説明文を下から自然に表示
+- 写真のズームを控えめに調整
+- カーソルを離すと自然に元へ戻る
 - 閉じるボタンなし
-- スマホはタップで説明表示 / 再タップで戻る
-- 既存機能は削除せず維持
+- スマホはタップで表示 / 再タップで戻る
 
 アップロードするファイル:
 - index.html
@@ -16,9 +29,8 @@ NINJA AIRS CMS Version 20.3.0 GALLERY FULL-HOVER FIX
 - sw.js
 - README.txt
 
-確認URL:
-https://ninja326.github.io/NINJAAIRSU15/index.html?ver=20-3
-https://ninja326.github.io/NINJAAIRSU15/admin.html?ver=20-3
-
-反映されない場合:
-Cmd + Shift + R で強制再読み込み
+アップロード後の確認:
+1. GitHub Pages が緑チェックになるまで待つ
+2. 公開ページを開く
+   https://ninja326.github.io/NINJAAIRSU15/index.html?ver=20-4
+3. Cmd + Shift + R で強制再読み込み

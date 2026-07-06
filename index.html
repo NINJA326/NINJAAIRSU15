@@ -55,7 +55,7 @@
 @media(max-width:900px){.gallery{grid-auto-rows:300px!important}.photo.big{grid-row:span 1}.photoOverlay{padding:30px 24px!important}.photoTitle{font-size:1.35rem!important}.photoDesc{font-size:.92rem!important;line-height:1.75!important}.photoCaption{left:18px!important;bottom:18px!important;max-width:calc(100% - 36px)!important}}
 
 
-/* v20.3 optimized gallery full hover: title always visible, description only on hover/tap, no close button */
+/* v20.4 optimized gallery full hover: title always visible, description only on hover/tap, no close button */
 .gallery{grid-auto-rows:280px!important;gap:18px!important}
 .photo{position:relative!important;cursor:pointer!important;background:#eef1f5!important;box-shadow:0 16px 38px rgba(16,24,40,.08)!important;transition:transform .25s ease,box-shadow .25s ease!important;overflow:hidden!important;border-radius:26px!important}
 .photo.big{grid-row:span 2!important}
@@ -74,7 +74,7 @@
 @media(max-width:900px){.gallery{grid-template-columns:1fr!important;grid-auto-rows:300px!important}.photo.big{grid-row:span 1!important}.photoOverlay{padding:28px 24px!important}.photoTitle{font-size:1.35rem!important}.photoDesc{font-size:.92rem!important;line-height:1.75!important}.photoCaption{font-size:.95rem!important}}
 
 
-/* v20.3 gallery hover full-screen reading mode
+/* v20.4 gallery hover full-screen reading mode
    - normal: title only
    - hover/tap: card expands to almost full browser area and shows full description
    - mouse leave / tap again: returns to original */
@@ -97,8 +97,28 @@
 body:has(.photo:hover),body:has(.photo.open){overflow:hidden}
 @media(max-width:900px){.gallery{grid-template-columns:1fr!important;grid-auto-rows:300px!important}.photo.big{grid-row:span 1!important}.photo:hover,.photo.open{left:14px!important;right:14px!important;top:86px!important;bottom:18px!important}.photoOverlay{padding:28px 24px!important;align-items:flex-start!important}.photoTitle{font-size:1.8rem!important}.photoDesc{font-size:1.05rem!important;line-height:1.75!important}.photoCaption{font-size:.95rem!important}}
 
+
+/* v20.4 gallery soft hover:ふわっと表示・少し小さめ */
+.gallery{grid-auto-rows:250px!important;gap:18px!important}
+.photo{transition:transform .42s cubic-bezier(.22,.61,.36,1),box-shadow .42s cubic-bezier(.22,.61,.36,1),border-radius .42s ease!important}
+.photo.big{grid-row:span 2!important}
+.photo .imgbox img{transition:transform .55s cubic-bezier(.22,.61,.36,1),filter .45s ease!important}
+.photoCaption{transition:opacity .38s ease,transform .38s cubic-bezier(.22,.61,.36,1)!important}
+.photoOverlay{background:rgba(0,0,0,.68)!important;opacity:0!important;transition:opacity .45s ease!important;align-items:center!important;justify-content:center!important;padding:clamp(24px,3.2vw,52px)!important}
+.photoText{width:min(100%,860px)!important;transform:translateY(18px) scale(.985)!important;opacity:0!important;transition:opacity .45s ease .05s,transform .48s cubic-bezier(.22,.61,.36,1) .05s!important;margin:auto!important}
+.photoTitle{font-size:clamp(1.45rem,3.2vw,3.05rem)!important;line-height:1.2!important;margin-bottom:18px!important;border-bottom:3px solid var(--pink)!important;text-shadow:0 3px 16px rgba(0,0,0,.55)!important}
+.photoDesc{font-size:clamp(.98rem,1.55vw,1.55rem)!important;line-height:1.85!important;text-shadow:0 3px 16px rgba(0,0,0,.55)!important}
+.photo:hover,.photo.open{position:fixed!important;left:8vw!important;right:8vw!important;top:120px!important;bottom:64px!important;width:auto!important;height:auto!important;z-index:9999!important;grid-row:auto!important;transform:translateY(-2px) scale(1)!important;box-shadow:0 28px 76px rgba(0,0,0,.34)!important;border-radius:28px!important}
+.photo:hover .imgbox,.photo.open .imgbox{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;border-radius:0!important;aspect-ratio:auto!important;margin:0!important}
+.photo:hover .imgbox img,.photo.open .imgbox img{transform:scale(1.018)!important;filter:brightness(.92)!important}
+.photo:hover .photoCaption,.photo.open .photoCaption{opacity:0!important;transform:translateY(10px) scale(.98)!important;pointer-events:none!important}
+.photo:hover .photoOverlay,.photo.open .photoOverlay{opacity:1!important}
+.photo:hover .photoText,.photo.open .photoText{opacity:1!important;transform:translateY(0) scale(1)!important}
+body:has(.photo:hover),body:has(.photo.open){overflow:hidden}
+@media(max-width:900px){.gallery{grid-template-columns:1fr!important;grid-auto-rows:280px!important}.photo.big{grid-row:span 1!important}.photo:hover,.photo.open{left:22px!important;right:22px!important;top:96px!important;bottom:36px!important}.photoOverlay{padding:28px 24px!important;align-items:center!important}.photoTitle{font-size:1.65rem!important}.photoDesc{font-size:.98rem!important;line-height:1.75!important}.photoCaption{font-size:.95rem!important}}
+
 </style></head><body><script>
-/* Version20.3: remove old PWA/ServiceWorker caches so GitHub Pages always shows the newest HTML */
+/* Version20.4: remove old PWA/ServiceWorker caches so GitHub Pages always shows the newest HTML */
 (function(){
   try{
     if('serviceWorker' in navigator){
