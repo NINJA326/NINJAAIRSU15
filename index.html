@@ -964,7 +964,7 @@ body:has(#gallery .photo.open){overflow:auto!important;}
 
 
 
-/* v20.19 FINAL: 活動イメージ hover indicator only - no image/card motion */
+/* v20.20 FINAL: 活動イメージ hover indicator only - no image/card motion */
 #gallery .photo,
 #gallery .photo:hover,
 #gallery .photo:focus-visible,
@@ -1031,8 +1031,87 @@ body:has(#gallery .photo.open){overflow:auto!important;}
   z-index:1!important;
 }
 
+
+
+/* v20.20 FINAL LOCK: 活動イメージは絶対に動かさない。
+   hover は水色の枠と薄いベールのみ。選択中はピンク枠のみ。 */
+#gallery .photo,
+#gallery .photo:hover,
+#gallery .photo:focus,
+#gallery .photo:focus-visible,
+#gallery .photo:active,
+#gallery .photo.active{
+  transform:none!important;
+  translate:0 0!important;
+  scale:1!important;
+  rotate:0deg!important;
+  animation:none!important;
+  transition:outline-color .18s ease, box-shadow .18s ease, background-color .18s ease!important;
+  box-shadow:0 12px 30px rgba(16,24,40,.08)!important;
+  outline:4px solid transparent!important;
+  outline-offset:0!important;
+}
+#gallery .photo:hover,
+#gallery .photo:focus-visible{
+  outline-color:rgba(24,185,255,.68)!important;
+  box-shadow:0 12px 30px rgba(16,24,40,.08), 0 0 0 6px rgba(24,185,255,.10)!important;
+}
+#gallery .photo.active{
+  outline-color:rgba(255,59,173,.86)!important;
+  box-shadow:0 12px 30px rgba(16,24,40,.08), 0 0 0 6px rgba(255,59,173,.12)!important;
+}
+#gallery .photo .imgbox,
+#gallery .photo:hover .imgbox,
+#gallery .photo:focus-visible .imgbox,
+#gallery .photo.active .imgbox,
+#gallery .photo .imgbox img,
+#gallery .photo:hover .imgbox img,
+#gallery .photo:focus-visible .imgbox img,
+#gallery .photo.active .imgbox img{
+  transform:none!important;
+  translate:0 0!important;
+  scale:1!important;
+  rotate:0deg!important;
+  filter:none!important;
+  opacity:1!important;
+  animation:none!important;
+  transition:none!important;
+}
+#gallery .photo::before{
+  content:""!important;
+  position:absolute!important;
+  inset:0!important;
+  z-index:2!important;
+  pointer-events:none!important;
+  border-radius:inherit!important;
+  background:transparent!important;
+  opacity:1!important;
+  transform:none!important;
+  transition:background-color .18s ease!important;
+}
+#gallery .photo:hover::before,
+#gallery .photo:focus-visible::before{
+  background:rgba(24,185,255,.10)!important;
+}
+#gallery .photo.active::before{
+  background:rgba(255,59,173,.08)!important;
+}
+#gallery .photoCaption,
+#gallery .photo:hover .photoCaption,
+#gallery .photo:focus-visible .photoCaption,
+#gallery .photo.active .photoCaption{
+  transform:none!important;
+  translate:0 0!important;
+  scale:1!important;
+  opacity:1!important;
+  animation:none!important;
+  transition:none!important;
+  z-index:3!important;
+}
+#gallery .galleryDetail.fade{animation:none!important;}
+
 </style></head><body><script>
-/* Version20.19: remove gallery guide text and public view counter */
+/* Version20.20: no gallery motion / hover indicator only */
 (function(){
   try{
     if('serviceWorker' in navigator){
