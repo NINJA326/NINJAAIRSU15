@@ -11,7 +11,7 @@
 .staffBanner{overflow:visible;background:transparent;box-shadow:none;border:0;border-radius:0}
 .staffBanner img{width:100%;height:auto !important;max-width:100%;aspect-ratio:auto !important;object-fit:contain !important;display:block;border-radius:28px;border:1px solid var(--line);box-shadow:0 20px 55px rgba(16,24,40,.10);transform:none !important}
 
-/* v19.1 gallery: title always visible, description only on hover/tap */
+/* v19.2 gallery: title visible, hover description no top clipping */
 .gallery{grid-auto-rows:260px}
 .photo{cursor:pointer;background:#eef1f5;box-shadow:0 16px 38px rgba(16,24,40,.08);transition:transform .25s ease,box-shadow .25s ease}
 .photo:hover,.photo.open{transform:translateY(-5px);box-shadow:0 24px 60px rgba(16,24,40,.16)}
@@ -28,6 +28,14 @@
 .photoDesc{display:block;font-size:.95rem;font-weight:800;line-height:1.65;white-space:pre-line;color:#eef2f7;text-shadow:0 2px 10px rgba(0,0,0,.35)}
 @media(max-width:900px){.gallery{grid-auto-rows:260px}.photoOverlay{opacity:0}.photo.open .photoOverlay{opacity:1}.photoCaption{font-size:.95rem}}
 
+
+/* v19.2 fix: long hover text no longer clips at the top */
+.photoOverlay{align-items:flex-start!important;overflow-y:auto!important;padding:34px 28px 28px!important;background:linear-gradient(180deg,rgba(0,0,0,.64),rgba(0,0,0,.72))!important}
+.photoText{transform:none!important;max-width:100%!important;width:100%!important;padding-top:0!important}
+.photo:hover .photoText,.photo.open .photoText{transform:none!important}
+.photoTitle{margin-bottom:12px!important}
+.photoDesc{display:block;max-height:none;font-size:clamp(.82rem,1.55vw,.98rem);line-height:1.7}
+@media(max-width:900px){.photoOverlay{padding:28px 22px 22px!important}.photoDesc{font-size:.88rem;line-height:1.65}}
 </style></head><body>
 <nav class="nav"><div class="wrap navin"><a class="brand" href="#top"><img src="assets/ninja-airs-logo-transparent.png" alt="NINJA AIRS"><span>NINJA AIRS<small>U15 CLUB</small></span></a><ul><li><a href="#about">NINJA AIRS U15について</a></li><li><a href="#program">活動内容</a></li><li><a href="#diary">日記</a></li><li><a href="#schedule">練習日</a></li><li><a href="#faq">FAQ</a></li><li><a href="#sponsor">スポンサー</a></li><li><a class="trial" href="#contact">体験申込み</a></li></ul></div></nav>
 <header class="hero" id="top"><div class="slides" id="slides"></div><div class="wrap hero-content"><div><p class="eyebrow">U15 BASKETBALL CLUB</p><h1>NINJA<span class="grad">AIRS</span></h1><p class="copy" id="heroCopy"></p><p class="lead" id="heroLead"></p><div class="actions"><a class="btn primary" id="line1" href="#" target="_blank">無料体験に申し込む →</a><a class="btn" href="#program">活動内容を見る →</a></div></div><div class="hero-logo"><img src="assets/ninja-airs-logo-transparent.png" alt="NINJA AIRS"></div></div></header>

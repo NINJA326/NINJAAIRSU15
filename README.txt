@@ -1,4 +1,4 @@
-NINJA AIRS CMS Version 19.1.0
+NINJA AIRS CMS Version 19.2.0
 
 公開ページ:
 - index.html
@@ -30,3 +30,6 @@ Version19.1 追加内容:
 - 活動イメージのタイトルを通常時から表示
 - 説明文はカーソルを合わせた時だけ表示
 - 他機能は変更なし
+
+
+Version 19.2.0: 活動イメージのホバー説明で上部が切れないように修正。
