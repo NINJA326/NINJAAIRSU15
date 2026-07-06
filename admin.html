@@ -1,333 +1,79 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>NINJA AIRS 管理画面 v11 Complete</title>
-<style>
-:root{--ink:#101116;--muted:#667085;--line:#e8eaf0;--bg:#f5f6fa;--pink:#ff3bad;--blue:#18b9ff;--dark:#07080d;--grad:linear-gradient(100deg,var(--pink),var(--blue));--bad:#d92d20;--ok:#027a48;--warn:#f79009}
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,"Noto Sans JP",Meiryo,sans-serif;background:var(--bg);color:var(--ink);line-height:1.65}
-a{text-decoration:none;color:inherit}.app{display:grid;grid-template-columns:280px 1fr;min-height:100vh}.sidebar{background:#fff;border-right:1px solid var(--line);padding:22px;position:sticky;top:0;height:100vh;overflow:auto}.brand{font-size:1.65rem;font-weight:1000;line-height:1.1}.brand small{display:block;color:var(--muted);font-size:.85rem;margin-top:6px}.user{margin:18px 0;padding:14px;border-radius:18px;background:#f3f6ff;color:#344054;font-weight:900;word-break:break-all}.navbtn{width:100%;border:0;background:#fff;text-align:left;padding:14px 16px;border-radius:16px;font-weight:1000;margin:4px 0;cursor:pointer}.navbtn.active{background:#07080d;color:#fff}.dataState{margin-top:24px;border:1px solid var(--line);border-radius:18px;padding:14px;font-size:.86rem}.main{padding:28px;max-width:1380px;width:100%;margin:0 auto}.head{display:flex;justify-content:space-between;gap:16px;align-items:center;margin-bottom:20px}.head h1{font-size:2rem}.muted{color:var(--muted);font-weight:800}.panel{background:#fff;border:1px solid var(--line);border-radius:24px;padding:24px;margin:18px 0;box-shadow:0 14px 42px rgba(0,0,0,.04)}.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.field{margin:12px 0}label{display:block;font-weight:1000;margin-bottom:7px}input,textarea,select{width:100%;border:1px solid var(--line);border-radius:14px;padding:13px 14px;font:inherit;background:#fff}textarea{min-height:126px;white-space:pre-wrap}.btn{border:0;border-radius:999px;background:var(--dark);color:#fff;font-weight:1000;padding:12px 18px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none}.btn.grad{background:var(--grad)}.btn.light{background:#fff;color:var(--dark);border:2px solid var(--dark)}.btn.red{background:#fee4e2;color:#b42318}.btn.blue{background:#e8f5ff;color:#075985}.btn:disabled{opacity:.45;cursor:not-allowed}.actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.hidden{display:none!important}.msg{margin:14px 0;padding:13px 16px;border-radius:14px;background:#ecfdf3;color:#027a48;font-weight:900;white-space:pre-wrap}.msg.bad{background:#fff1f3;color:#b42318}.msg.warn{background:#fff8e6;color:#9a5b00}.item{border:1px solid var(--line);border-radius:20px;padding:16px;margin:12px 0;background:#fff}.item-head{display:flex;justify-content:space-between;align-items:center;gap:10px}.imgedit{display:grid;grid-template-columns:280px 1fr;gap:18px;align-items:start}.previewBox{width:280px;aspect-ratio:16/10;overflow:hidden;border-radius:16px;background:#eef1f5;position:relative;border:1px solid #dde1ea}.previewBox img{width:100%;height:100%;object-fit:cover;transform-origin:center}.savebar{position:sticky;bottom:14px;background:#fff;border:1px solid var(--line);border-radius:22px;padding:14px;box-shadow:0 20px 50px rgba(0,0,0,.12);display:flex;justify-content:space-between;align-items:center;gap:12px;z-index:20}.loginbox{max-width:860px;margin:70px auto}.drop{border:2px dashed #b9c4d7;border-radius:24px;padding:28px;text-align:center;background:#fbfcff}.drop.drag{background:#eef6ff;border-color:#38bdf8}.selectedPreview{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:14px}.selectedPreview img{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:12px;background:#eef1f5}.tools{display:grid;grid-template-columns:1.4fr .8fr .8fr .8fr;gap:12px;align-items:end}.assetGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.asset{border:1px solid var(--line);border-radius:18px;background:#fff;overflow:hidden;position:relative}.asset.selected{outline:4px solid #18b9ff}.asset .thumb{width:100%;aspect-ratio:4/3;object-fit:cover;background:#eef1f5;display:block;cursor:zoom-in}.asset .body{padding:12px}.asset b{display:block;font-size:.92rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.asset .meta{font-size:.78rem;color:var(--muted);font-weight:800}.badge{display:inline-flex;border-radius:999px;background:#eef2ff;color:#3445a8;padding:3px 8px;font-size:.74rem;font-weight:900;margin:2px 3px 2px 0}.badge.unused{background:#fff3e8;color:#9a3412}.check{position:absolute;top:10px;left:10px;width:28px;height:28px}.progress{height:10px;background:#e5e7eb;border-radius:999px;overflow:hidden;margin-top:12px}.progress span{display:block;height:100%;background:var(--grad);width:0%}.modal{position:fixed;inset:0;background:rgba(0,0,0,.76);z-index:100;display:flex;align-items:center;justify-content:center;padding:24px}.modalBox{background:#fff;border-radius:22px;max-width:1100px;width:100%;max-height:92vh;overflow:auto;padding:18px}.modalImg{width:100%;max-height:72vh;object-fit:contain;background:#111;border-radius:16px}.small{font-size:.86rem}.spinner{width:16px;height:16px;border-radius:50%;border:2px solid rgba(255,255,255,.55);border-top-color:#fff;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
-@media(max-width:900px){.app{display:block}.sidebar{position:relative;height:auto}.main{padding:14px}.grid,.grid3,.imgedit,.tools,.assetGrid,.selectedPreview{grid-template-columns:1fr}.previewBox{width:100%}.savebar{display:block}.head{display:block}}
-</style>
-</head>
-<body>
-<div id="fatal" style="display:none;max-width:1000px;margin:20px auto;padding:18px;border-radius:16px;background:#fff1f3;color:#b42318;font-weight:800;border:1px solid #fda29b;white-space:pre-wrap"></div>
-
-<div id="login" class="loginbox panel">
-  <h1>NINJA AIRS 管理画面 v11 Complete</h1>
-  <p class="muted">画像はGitHubへ保存し、Firestoreには文章と画像URLだけ保存します。</p>
-  <div class="actions"><button class="btn" id="loginMode">ログイン</button><button class="btn light" id="regMode">初回管理者登録</button><a class="btn light" href="index.html">公開サイトへ戻る</a></div>
-  <div class="field"><label>メールアドレス</label><input id="email" type="email" value="xxxmastsxxx@gmail.com"></div>
-  <div class="field"><label>パスワード</label><input id="password" type="password" placeholder="6文字以上"></div>
-  <button class="btn grad" id="authBtn">ログイン</button>
-  <div id="loginMsg"></div>
-</div>
-
-<div id="app" class="app hidden">
-  <aside class="sidebar">
-    <div class="brand">NINJA AIRS<small>管理画面 v11 Complete</small></div>
-    <div class="user" id="userBadge"></div>
-    <button class="navbtn active" data-tab="basic">基本情報</button>
-    <button class="navbtn" data-tab="images">画像管理</button>
-    <button class="navbtn" data-tab="slides">トップ画像</button>
-    <button class="navbtn" data-tab="program">活動内容</button>
-    <button class="navbtn" data-tab="diary">活動日記</button>
-    <button class="navbtn" data-tab="gallery">活動イメージ</button>
-    <button class="navbtn" data-tab="schedule">スケジュール</button>
-    <button class="navbtn" data-tab="faq">FAQ</button>
-    <button class="navbtn" data-tab="sponsor">スポンサー</button>
-    <button class="navbtn" data-tab="seo">SEO・設定</button>
-    <button class="navbtn" data-tab="saveArea">保存</button>
-    <div class="dataState">
-      <b>データ状態</b><br>
-      <span id="connectionState">未接続</span><br>
-      <span id="lastSaved">未保存</span>
-    </div>
-    <div class="actions" style="margin-top:18px"><button class="btn light" id="logoutBtn">ログアウト</button></div>
-  </aside>
-
-  <main class="main">
-    <div class="head">
-      <div><h1 id="pageTitle">基本情報</h1><p class="muted">公開サイトと管理画面を一体化したNINJA AIRS専用CMSです。</p></div>
-      <div class="actions"><a class="btn light" href="index.html" target="_blank">公開サイトを見る</a><button class="btn grad" id="quickSave">保存</button></div>
-    </div>
-
-    <section class="panel tabsec" id="basic">
-      <h2>基本情報</h2>
-      <div class="grid">
-        <div class="field"><label>メインコピー</label><textarea id="heroCopy"></textarea></div>
-        <div class="field"><label>説明文</label><textarea id="heroLead"></textarea></div>
-        <div class="field"><label>NINJA AIRS U15について 見出し</label><input id="aboutTitle"></div>
-        <div class="field"><label>NINJA AIRS U15について 本文</label><textarea id="aboutText"></textarea></div>
-        <div class="field"><label>選手募集状況</label><select id="recruitStatus"><option>募集中</option><option>キャンセル待ち</option><option>募集停止</option></select></div>
-        <div class="field"><label>お知らせ一行</label><input id="newsLine"></div>
-        <div class="field"><label>LINE URL</label><input id="lineUrl"></div>
-        <div class="field"><label>メールアドレス</label><input id="mail"></div>
-        <div class="field"><label>スタッフ募集 文言</label><textarea id="staffText"></textarea></div>
-        <div class="field"><label>活動日記 説明文</label><textarea id="diaryLead"></textarea></div>
-      </div>
-    </section>
-
-    <section class="panel tabsec hidden" id="images">
-      <h2>画像管理</h2>
-      <div class="grid">
-        <div class="field"><label>GitHub Token</label><input id="ghToken" type="password" placeholder="github_pat_..."><p class="muted small">このブラウザだけに保存します。チャットやスクリーンショットには表示しないでください。</p></div>
-        <div class="field"><label>保存先フォルダ</label><input id="ghPath" value="assets/uploads"></div>
-      </div>
-      <div class="actions"><button class="btn light" id="saveToken">Token設定を保存</button><button class="btn blue" id="testConn">接続テスト</button><button class="btn" id="reloadAssets">GitHubと同期</button></div>
-      <div id="imageMsg"></div>
-
-      <div id="uploadDrop" class="drop">
-        <h2>画像をアップロード</h2>
-        <p class="muted">ドラッグ&ドロップ、またはファイル選択。選択した写真は下に大きく表示されます。</p>
-        <div class="field"><input type="file" id="uploadFiles" accept="image/*" multiple></div>
-        <div class="actions" style="justify-content:center"><button class="btn grad" id="uploadBtn">GitHubへアップロード</button><label><input type="checkbox" id="overwriteSame" checked style="width:auto"> 同じファイル名は上書き</label></div>
-        <div class="progress hidden" id="uploadProgress"><span></span></div>
-        <div id="selectedPreview" class="selectedPreview"></div>
-      </div>
-
-      <div class="panel" style="box-shadow:none">
-        <h2>アップロード済み画像</h2>
-        <div class="tools">
-          <div class="field"><label>検索</label><input id="assetSearch" placeholder="ファイル名・使用箇所で検索"></div>
-          <div class="field"><label>表示</label><select id="assetFilter"><option value="all">すべて</option><option value="used">使用中</option><option value="unused">未使用</option></select></div>
-          <div class="field"><label>並び替え</label><select id="assetSort"><option value="new">新しい順</option><option value="old">古い順</option><option value="name">名前順</option><option value="size">容量順</option></select></div>
-          <div class="actions"><button class="btn red" id="deleteSelected">選択画像を削除</button></div>
-        </div>
-        <div class="actions"><button class="btn light" id="selectUnused">未使用を選択</button><button class="btn light" id="clearSelection">選択解除</button></div>
-        <div id="assetStats" class="muted small" style="margin:10px 0"></div>
-        <div class="assetGrid" id="assetList"></div>
-      </div>
-    </section>
-
-    <section class="panel tabsec hidden" id="slides"><h2>トップ画像スライドショー</h2><div id="slideList"></div><button class="btn grad" id="addSlide">＋ トップ画像追加</button></section>
-    <section class="panel tabsec hidden" id="program"><h2>活動内容</h2><div class="field"><label>活動内容 説明文</label><textarea id="programLead"></textarea></div><div id="programList"></div></section>
-    <section class="panel tabsec hidden" id="diary"><h2>活動日記</h2><button class="btn grad" id="addDiary">＋ 日記追加</button><div id="diaryList"></div></section>
-    <section class="panel tabsec hidden" id="gallery"><h2>活動イメージ</h2><div id="galleryList"></div><button class="btn grad" id="addGallery">＋ 活動イメージ追加</button></section>
-    <section class="panel tabsec hidden" id="schedule"><h2>スケジュール管理</h2><button class="btn grad" id="addSchedule">＋ 予定追加</button><div id="scheduleList"></div></section>
-    <section class="panel tabsec hidden" id="faq"><h2>FAQ</h2><button class="btn grad" id="addFaq">＋ FAQ追加</button><div id="faqList"></div></section>
-    <section class="panel tabsec hidden" id="sponsor"><h2>スポンサー募集</h2><div class="field"><label>スポンサー募集 文言</label><textarea id="sponsorText"></textarea></div><button class="btn grad" id="addSponsor">＋ スポンサー追加</button><div id="sponsorList"></div></section>
-    <section class="panel tabsec hidden" id="seo"><h2>SEO・アクセス数</h2><div class="grid"><div class="field"><label>サイトタイトル</label><input id="seoTitle"></div><div class="field"><label>サイト説明文</label><textarea id="seoDescription"></textarea></div><div class="field"><label>現在のアクセス数</label><input id="views" type="number" min="0"></div></div></section>
-    <section class="panel tabsec hidden" id="saveArea"><h2>保存</h2><p class="muted">Firestoreには画像本体ではなくURLだけ保存します。</p></section>
-
-    <div class="savebar">
-      <div><b>公開サイトへ保存</b><div class="small muted" id="saveHint">Base64画像は自動除外・URL形式へ統一します。</div></div>
-      <div class="actions"><button class="btn grad" id="saveBtn">公開サイトへ保存</button><button class="btn light" id="resetBtn">初期データを再表示</button></div>
-    </div>
-    <div id="saveMsg"></div>
-  </main>
-</div>
-
-<div id="modal" class="modal hidden"><div class="modalBox"><div class="actions" style="justify-content:space-between"><b id="modalTitle"></b><button class="btn light" id="modalClose">閉じる</button></div><img id="modalImg" class="modalImg"><div class="actions" style="margin-top:12px"><button class="btn light" id="modalPrev">前へ</button><button class="btn light" id="modalNext">次へ</button><a class="btn" id="modalOpen" target="_blank">新しいタブで表示</a></div></div></div>
-
-<script>
-window.addEventListener('error',e=>{fatal.style.display='block';fatal.textContent='管理画面エラー: '+e.message});
-window.addEventListener('unhandledrejection',e=>{fatal.style.display='block';fatal.textContent='管理画面エラー: '+((e.reason&&e.reason.message)||e.reason)});
-</script>
-
+<!DOCTYPE html><html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>NINJA AIRS 管理画面 v12</title><style>
+:root{--ink:#101116;--muted:#667085;--line:#e8eaf0;--bg:#f5f6fa;--pink:#ff3bad;--blue:#18b9ff;--dark:#07080d;--grad:linear-gradient(100deg,var(--pink),var(--blue));--bad:#d92d20;--warn:#f79009}*{box-sizing:border-box;margin:0;padding:0}body{font-family:-apple-system,BlinkMacSystemFont,"Noto Sans JP",Meiryo,sans-serif;background:var(--bg);color:var(--ink);line-height:1.7}.wrap{max-width:1200px;margin:auto;padding:22px}.panel{background:#fff;border:1px solid var(--line);border-radius:24px;padding:24px;margin:18px 0;box-shadow:0 14px 42px rgba(0,0,0,.05)}h1{font-size:2rem}h2{font-size:1.35rem;margin-bottom:16px}.muted{color:var(--muted);font-weight:800}.top{display:flex;justify-content:space-between;gap:18px;align-items:center}.tabs{position:sticky;top:0;background:rgba(245,246,250,.94);backdrop-filter:blur(12px);z-index:10;padding:12px 0;display:flex;gap:10px;flex-wrap:wrap}.tab{border:1px solid var(--line);background:#fff;border-radius:999px;padding:10px 16px;font-weight:1000;cursor:pointer}.tab.active{background:var(--dark);color:#fff}.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.field{margin:12px 0}label{display:block;font-weight:1000;margin-bottom:6px}input,textarea,select{width:100%;border:1px solid var(--line);border-radius:14px;padding:13px 14px;font:inherit;background:#fff}textarea{min-height:120px;white-space:pre-wrap}.btn{border:0;border-radius:999px;background:var(--dark);color:#fff;font-weight:1000;padding:13px 20px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none}.btn.grad{background:var(--grad)}.btn.light{background:#fff;color:var(--dark);border:2px solid var(--dark)}.btn.red{background:#fee4e2;color:#b42318}.btn:active{transform:scale(.97)}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}.hidden{display:none!important}.msg{margin-top:14px;padding:13px 16px;border-radius:14px;background:#ecfdf3;color:#027a48;font-weight:900;white-space:pre-wrap}.msg.bad{background:#fff1f3;color:#b42318}.msg.warn{background:#fff8e6;color:#9a5b00}.item{border:1px solid var(--line);border-radius:20px;padding:16px;margin:12px 0;background:#fff}.item-head{display:flex;justify-content:space-between;align-items:center;gap:10px}.imgedit{display:grid;grid-template-columns:260px 1fr;gap:18px;align-items:start}.previewBox{width:260px;aspect-ratio:16/10;overflow:hidden;border-radius:16px;background:#eef1f5;position:relative;border:1px solid #dde1ea}.previewBox img{width:100%;height:100%;object-fit:cover;transform-origin:center}.pill{display:inline-flex;background:#eef2ff;color:#3445a8;border-radius:999px;padding:4px 10px;font-weight:900;font-size:.85rem}.savebar{position:sticky;bottom:12px;background:#fff;border:1px solid var(--line);border-radius:22px;padding:14px;box-shadow:0 20px 50px rgba(0,0,0,.1);display:flex;justify-content:space-between;align-items:center;gap:12px;z-index:20}.small{font-size:.85rem}.loginbox{max-width:900px;margin:60px auto}.drop{border:2px dashed #b9c4d7;border-radius:24px;padding:34px;text-align:center;background:#fbfcff}.drop.drag{background:#eef6ff}.galleryList{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.asset{border:1px solid var(--line);border-radius:16px;padding:10px;background:#fff}.asset img{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:12px;background:#eef1f5}.asset input{font-size:.8rem}.selectedPreview{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:14px}.selectedPreview .asset{background:#fff}.selectedPreview .asset img{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:12px}@media(max-width:800px){.selectedPreview{grid-template-columns:1fr 1fr}}.assetTools{display:grid;grid-template-columns:1.3fr .8fr .8fr auto auto;gap:10px;align-items:end;margin:18px 0}.asset{position:relative}.asset.selected{outline:4px solid rgba(24,185,255,.35)}.asset .usedBadge{display:inline-flex;padding:3px 8px;border-radius:999px;background:#ecfdf3;color:#027a48;font-size:.72rem;font-weight:1000;margin:3px 3px 6px 0}.asset .unusedBadge{display:inline-flex;padding:3px 8px;border-radius:999px;background:#fff8e6;color:#9a5b00;font-size:.72rem;font-weight:1000;margin:3px 3px 6px 0}.asset .check{position:absolute;top:12px;left:12px;width:22px;height:22px}.assetName{font-weight:1000;font-size:.85rem;word-break:break-all;margin:8px 0 4px}.modal{position:fixed;inset:0;background:rgba(0,0,0,.78);z-index:999;display:none;align-items:center;justify-content:center;padding:24px}.modal.open{display:flex}.modalInner{max-width:min(1100px,96vw);max-height:92vh;background:#111;border-radius:20px;padding:14px;color:#fff}.modalInner img{max-width:100%;max-height:76vh;display:block;border-radius:12px}.modalInner .actions{justify-content:space-between}.dangerText{color:#b42318;font-weight:900}@media(max-width:800px){.assetTools{grid-template-columns:1fr 1fr}.assetTools .btn{width:100%}}.spinner{width:16px;height:16px;border-radius:50%;border:2px solid rgba(255,255,255,.55);border-top-color:#fff;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}@media(max-width:800px){.grid,.grid3,.imgedit,.galleryList{grid-template-columns:1fr}.top{display:block}.wrap{padding:14px}.savebar{display:block}.savebar .actions{margin-top:10px}.previewBox{width:100%}}
+</style></head><body><div id="fatal" style="display:none;max-width:1000px;margin:20px auto;padding:18px;border-radius:16px;background:#fff1f3;color:#b42318;font-weight:800;border:1px solid #fda29b;white-space:pre-wrap"></div><div class="wrap">
+<div id="login" class="loginbox panel"><h1>NINJA AIRS 管理画面</h1><p class="muted">ログイン後、文章・画像URL・日記・FAQ・スポンサーを編集できます。画像はGitHubへ保存、FirestoreにはURLだけ保存します。</p><div class="actions"><button class="btn" id="loginMode">ログイン</button><button class="btn light" id="regMode">初回管理者登録</button><a class="btn light" href="index.html">公開サイトへ戻る</a></div><div class="field"><label>メールアドレス</label><input id="email" type="email" value="xxxmastsxxx@gmail.com"></div><div class="field"><label>パスワード</label><input id="password" type="password" placeholder="6文字以上"></div><button class="btn grad" id="authBtn">ログイン</button><div id="loginMsg"></div></div>
+<div id="app" class="hidden"><div class="top"><div><h1>NINJA AIRS 管理画面 v12 <span class="pill" id="userBadge"></span></h1><p class="muted">画像はGitHubの <b>assets/uploads/</b> へ保存。Firestoreには文章とURLだけ保存します。</p></div><div class="actions"><a class="btn light" href="index.html" target="_blank">公開サイトを見る</a><button class="btn" id="logoutBtn">ログアウト</button></div></div>
+<div class="tabs"><button class="tab active" data-tab="basic">基本情報</button><button class="tab" data-tab="images">画像管理</button><button class="tab" data-tab="slides">トップ画像</button><button class="tab" data-tab="program">活動内容</button><button class="tab" data-tab="diary">活動日記</button><button class="tab" data-tab="gallery">活動イメージ</button><button class="tab" data-tab="schedule">スケジュール</button><button class="tab" data-tab="faq">FAQ</button><button class="tab" data-tab="sponsor">スポンサー</button><button class="tab" data-tab="seo">SEO・設定</button><button class="tab" data-tab="saveArea">保存</button></div>
+<section class="panel tabsec" id="basic"><h2>基本情報</h2><div class="grid"><div class="field"><label>メインコピー</label><textarea id="heroCopy"></textarea></div><div class="field"><label>説明文</label><textarea id="heroLead"></textarea></div><div class="field"><label>NINJA AIRS U15について 見出し</label><input id="aboutTitle"></div><div class="field"><label>NINJA AIRS U15について 本文</label><textarea id="aboutText"></textarea></div><div class="field"><label>選手募集状況</label><select id="recruitStatus"><option>募集中</option><option>キャンセル待ち</option><option>募集停止</option></select></div><div class="field"><label>お知らせ一行</label><input id="newsLine"></div><div class="field"><label>LINE URL</label><input id="lineUrl"></div><div class="field"><label>メールアドレス</label><input id="mail"></div><div class="field"><label>スタッフ募集 文言</label><textarea id="staffText"></textarea></div><div class="field"><label>活動日記 説明文</label><textarea id="diaryLead"></textarea></div></div></section>
+<section class="panel tabsec hidden" id="images"><h2>画像管理</h2><div class="grid"><div class="field"><label>GitHub Token</label><input id="ghToken" type="password" placeholder="github_pat_... または ghp_..."><p class="muted small">TokenはこのブラウザのlocalStorageに保存します。権限は対象リポジトリの Contents Read/Write のみにしてください。</p></div><div class="field"><label>保存先</label><input id="ghPath" value="assets/uploads"></div></div><div class="actions"><button class="btn light" id="saveToken">Token設定を保存</button><button class="btn" id="reloadAssets">画像一覧を再読込</button></div><div id="uploadDrop" class="drop"><b>画像をここにドラッグ&ドロップ</b><br><span class="muted">または下のボタンから選択</span><div class="field"><input type="file" id="uploadFiles" accept="image/*" multiple></div><button class="btn grad" id="uploadBtn">GitHubへアップロード</button><div id="selectedPreview" class="selectedPreview"></div></div><div id="imageMsg"></div><h2 style="margin-top:24px">アップロード済み画像</h2><div class="assetTools"><div class="field"><label>検索</label><input id="assetSearch" placeholder="ファイル名・使用箇所で検索"></div><div class="field"><label>並び替え</label><select id="assetSort"><option value="new">新しい順</option><option value="old">古い順</option><option value="name">名前順</option><option value="size">容量順</option></select></div><div class="field"><label>表示</label><select id="assetFilter"><option value="all">すべて</option><option value="used">使用中</option><option value="unused">未使用</option></select></div><button class="btn light" id="selectUnused">未使用を選択</button><button class="btn red" id="deleteSelected">選択画像を削除</button></div><div class="galleryList" id="assetList"></div><div class="modal" id="imageModal"><div class="modalInner"><div class="actions"><b id="modalTitle">画像プレビュー</b><button class="btn light" id="closeModal">閉じる</button></div><img id="modalImg" src="" alt=""></div></div></section>
+<section class="panel tabsec hidden" id="slides"><h2>トップ画像スライドショー</h2><p class="muted">画像URLを貼るか、画像管理でアップロードしたURLを使用してください。</p><div id="slideList"></div><button class="btn grad" id="addSlide">＋ トップ画像追加</button></section>
+<section class="panel tabsec hidden" id="program"><h2>活動内容</h2><div class="field"><label>活動内容 説明文</label><textarea id="programLead"></textarea></div><div id="programList"></div></section>
+<section class="panel tabsec hidden" id="diary"><h2>活動日記</h2><button class="btn grad" id="addDiary">＋ 日記追加</button><div id="diaryList"></div></section>
+<section class="panel tabsec hidden" id="gallery"><h2>活動イメージ</h2><div id="galleryList"></div><button class="btn grad" id="addGallery">＋ 活動イメージ追加</button></section>
+<section class="panel tabsec hidden" id="schedule"><h2>スケジュール管理</h2><button class="btn grad" id="addSchedule">＋ 予定追加</button><div id="scheduleList"></div></section>
+<section class="panel tabsec hidden" id="faq"><h2>FAQ</h2><button class="btn grad" id="addFaq">＋ FAQ追加</button><div id="faqList"></div></section>
+<section class="panel tabsec hidden" id="sponsor"><h2>スポンサー募集</h2><div class="field"><label>スポンサー募集 文言</label><textarea id="sponsorText"></textarea></div><button class="btn grad" id="addSponsor">＋ スポンサー追加</button><div id="sponsorList"></div></section>
+<section class="panel tabsec hidden" id="seo"><h2>SEO・アクセス数</h2><div class="grid"><div class="field"><label>サイトタイトル</label><input id="seoTitle"></div><div class="field"><label>サイト説明文</label><textarea id="seoDescription"></textarea></div><div class="field"><label>現在のアクセス数</label><input id="views" type="number" min="0"></div></div></section>
+<section class="panel tabsec hidden" id="saveArea"><h2>保存</h2><p class="muted">保存ボタンを押すとFirestoreへ保存し、公開サイトに反映されます。</p></section>
+<div class="savebar"><div><b>公開サイトへ保存</b><div class="small muted" id="lastSaved">未保存</div></div><div class="actions"><button class="btn grad" id="saveBtn">公開サイトへ保存</button><button class="btn light" id="resetBtn">初期データを再表示</button></div></div><div id="saveMsg"></div></div></div>
+<script>window.addEventListener('error',e=>{fatal.style.display='block';fatal.textContent='管理画面エラー: '+e.message});window.addEventListener('unhandledrejection',e=>{fatal.style.display='block';fatal.textContent='管理画面エラー: '+((e.reason&&e.reason.message)||e.reason)});</script>
 <script type="module">
 import { firebaseConfig, ADMIN_EMAILS } from './firebase-config.js';
-
-const OWNER='NINJA326', REPO='NINJAAIRSU15', BRANCH='main';
-const baseUrl=()=>`https://${OWNER.toLowerCase()}.github.io/${REPO}/`;
-const img=n=>`assets/${n}`;
-const blankFit={scale:1,x:50,y:50};
-const defaults={
- heroCopy:'自ら考え、動き、\n未来をつかむ。',
- heroLead:'滋賀県大津市を中心に活動するU15バスケットボールクラブ。\n技術だけでなく、判断力・主体性・人として成長する力を育てます。',
- aboutTitle:'NINJA AIRS U15について',
- aboutText:'バスケットを通して、自分で考え、仲間と関わり、行動できる選手を育てます。',
- programLead:'通常練習、スキルトレーニング、ゲーム、遠征、交流戦、個別課題への取り組みを行います。',
- diaryLead:'練習や遠征、試合での成長をすぐに見られるように、日々の活動を記録します。',
- staffText:'一緒に選手の成長を支えていただけるスタッフを募集しています。',
- sponsorText:'NINJA AIRSの活動を支えていただけるスポンサー様を募集しています。',
- lineUrl:'https://line.me/ti/p/i7YQJwh_U2', mail:'xxxmastsxxx@gmail.com',
- newsLine:'新チーム始動！無料体験受付中！', recruitStatus:'募集中',
- seoTitle:'NINJA AIRS｜滋賀県大津市のU15バスケットボールクラブ',
- seoDescription:'NINJA AIRSは滋賀県大津市を中心に活動するU15バスケットボールクラブです。',
- slides:[{url:img('activity-01-ensei.jpeg'),fit:{...blankFit}},{url:img('activity-04-circle.jpeg'),fit:{...blankFit}}],
- programs:[{title:'スキル練習',text:'ドリブル、シュート、パス、フットワーク、判断を反復します。',image:img('activity-05-practice.jpeg'),fit:{...blankFit}}],
- gallery:[{title:'遠征・挑戦',url:img('activity-01-ensei.jpeg'),fit:{...blankFit}}],
- diary:[{date:'2026.07.05',title:'活動日記を開始しました',body:'練習や遠征の様子を更新していきます。',image:img('activity-04-circle.jpeg'),fit:{...blankFit}}],
- schedule:[{date:'7/20',title:'通常練習',place:'龍谷大学',time:'18:00-21:00'}],
- faq:[{q:'体験には何が必要ですか？',a:'バスケットができる服装、体育館シューズ、飲み物、ボールがあれば持参してください。'}],
- sponsors:[], views:0
-};
-
-let data=structuredClone(defaults), mode='login', selectedFiles=[], assets=[], selectedAssets=new Set(), modalIndex=0;
-const $=id=>document.getElementById(id), qsa=s=>[...document.querySelectorAll(s)];
-const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-function msg(id,text,type=''){$(id).innerHTML=`<div class="msg ${type}">${text}</div>`}
-function isAdmin(email){return ADMIN_EMAILS.map(e=>e.toLowerCase()).includes((email||'').toLowerCase())}
-function fit(v){return {scale:Number(v?.scale||1),x:Number(v?.x??50),y:Number(v?.y??50)}}
+const OWNER='NINJA326', REPO='NINJAAIRSU15', BRANCH='main'; const img=n=>`assets/${n}`; const baseUrl=()=>`https://${OWNER.toLowerCase()}.github.io/${REPO}/`;
+const blankFit={scale:1,x:50,y:50}; const defaults={heroCopy:'自ら考え、動き、\n未来をつかむ。',heroLead:'滋賀県大津市を中心に活動するU15バスケットボールクラブ。\n技術だけでなく、判断力・主体性・人として成長する力を育てます。',aboutTitle:'NINJA AIRS U15について',aboutText:'バスケットを通して、自分で考え、仲間と関わり、行動できる選手を育てます。',programLead:'通常練習、スキルトレーニング、ゲーム、遠征、交流戦、個別課題への取り組みを行います。',diaryLead:'練習や遠征、試合での成長をすぐに見られるように、日々の活動を記録します。',staffText:'一緒に選手の成長を支えていただけるスタッフを募集しています。',sponsorText:'NINJA AIRSの活動を支えていただけるスポンサー様を募集しています。',lineUrl:'https://line.me/ti/p/i7YQJwh_U2',mail:'xxxmastsxxx@gmail.com',newsLine:'新チーム始動！無料体験受付中！',recruitStatus:'募集中',seoTitle:'NINJA AIRS｜滋賀県大津市のU15バスケットボールクラブ',seoDescription:'NINJA AIRSは滋賀県大津市を中心に活動するU15バスケットボールクラブです。',slides:[{url:img('activity-01-ensei.jpeg'),fit:{...blankFit}},{url:img('activity-04-circle.jpeg'),fit:{...blankFit}},{url:img('activity-05-practice.jpeg'),fit:{...blankFit}}],programs:[{title:'スキル練習',text:'ドリブル、シュート、パス、フットワーク、判断を反復します。',image:img('activity-05-practice.jpeg'),fit:{...blankFit}},{title:'映像・戦術理解',text:'試合や練習を振り返り、スペーシングや判断力を高めます。',image:img('activity-04-circle.jpeg'),fit:{...blankFit}},{title:'運動能力向上',text:'アジリティ、体幹、コーディネーションで動ける身体を作ります。',image:img('activity-03-team.jpeg'),fit:{...blankFit}}],gallery:[{title:'遠征・挑戦',url:img('activity-01-ensei.jpeg'),fit:{...blankFit}},{title:'大会・実戦経験',url:img('activity-02-match.jpeg'),fit:{...blankFit}},{title:'仲間と成長',url:img('activity-03-team.jpeg'),fit:{...blankFit}},{title:'チームワーク',url:img('activity-04-circle.jpeg'),fit:{...blankFit}},{title:'日々の練習',url:img('activity-05-practice.jpeg'),fit:{...blankFit}}],diary:[{date:'2026.07.05',title:'活動日記を開始しました',body:'練習や遠征の様子を更新していきます。',image:img('activity-04-circle.jpeg'),fit:{...blankFit}}],schedule:[{date:'7/20',title:'通常練習',place:'龍谷大学',time:'18:00-21:00'}],faq:[{q:'体験には何が必要ですか？',a:'バスケットができる服装、体育館シューズ、飲み物、ボールがあれば持参してください。'}],sponsors:[],views:0};
+let data=structuredClone(defaults), mode='login', selectedFiles=[], assetCache=[], selectedAssets=new Set(); const $=id=>document.getElementById(id), qsa=s=>[...document.querySelectorAll(s)]; const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+function msg(id,text,type=''){$(id).innerHTML=`<div class="msg ${type}">${text}</div>`} function isAdmin(email){return ADMIN_EMAILS.map(e=>e.toLowerCase()).includes((email||'').toLowerCase())}
 function norm(src){
  const o={...structuredClone(defaults),...(src||{})};
  ['slides','programs','gallery','diary','schedule','faq','sponsors'].forEach(k=>{if(!Array.isArray(o[k]))o[k]=[]});
- const toObj=(v,key='url')=> typeof v==='string' ? {[key]:v,fit:{...blankFit}} : ({...v,[key]:v?.[key]||v?.url||v?.image||'',fit:fit(v?.fit)});
+ const fit=v=>({scale:Number(v?.scale||1),x:Number(v?.x??50),y:Number(v?.y??50)});
+ const toObj=(v,key='url')=>{
+   if(typeof v==='string') return {[key]:v,fit:{...blankFit}};
+   if(!v || typeof v!=='object') return {[key]:'',fit:{...blankFit}};
+   return {...v,[key]:v[key]||v.url||v.image||'',fit:fit(v.fit)};
+ };
  o.slides=o.slides.map(v=>toObj(v,'url'));
  o.gallery=o.gallery.map(v=>({...toObj(v,'url'),title:(typeof v==='object'?v.title:'')||''}));
- o.programs=o.programs.map((v,i)=> typeof v==='string' ? {title:'活動内容 '+(i+1),text:'',image:v,fit:{...blankFit}} : ({...v,title:v?.title||'',text:v?.text||'',image:v?.image||v?.url||'',fit:fit(v?.fit)}));
- o.diary=o.diary.map(v=> typeof v==='string' ? {date:'',title:'',body:'',image:v,fit:{...blankFit}} : ({...v,date:v?.date||'',title:v?.title||'',body:v?.body||'',image:v?.image||v?.url||'',fit:fit(v?.fit)}));
- o.sponsors=o.sponsors.map(v=> typeof v==='string' ? {name:'',text:'',image:v,fit:{...blankFit}} : ({...v,name:v?.name||'',text:v?.text||'',image:v?.image||v?.url||'',fit:fit(v?.fit)}));
+ o.programs=o.programs.map((v,i)=>{if(typeof v==='string')return {title:'活動内容 '+(i+1),text:'',image:v,fit:{...blankFit}};return {...v,title:v?.title||'',text:v?.text||'',image:v?.image||v?.url||'',fit:fit(v?.fit)}});
+ o.diary=o.diary.map(v=>{if(typeof v==='string')return {date:'',title:'',body:'',image:v,fit:{...blankFit}};return {...v,date:v?.date||'',title:v?.title||'',body:v?.body||'',image:v?.image||v?.url||'',fit:fit(v?.fit)}});
+ o.sponsors=o.sponsors.map(v=>{if(typeof v==='string')return {name:'',text:'',image:v,fit:{...blankFit}};return {...v,name:v?.name||'',text:v?.text||'',image:v?.image||v?.url||'',fit:fit(v?.fit)}});
  return o;
 }
-function collectUrls(){
- const map=new Map();
- const add=(url,label)=>{if(!url||String(url).startsWith('data:'))return; const key=String(url).split('?')[0]; if(!map.has(key))map.set(key,[]); map.get(key).push(label)}
- data.slides.forEach((x,i)=>add(x.url,`トップ画像${i+1}`));
- data.programs.forEach((x,i)=>add(x.image,`活動内容${i+1}`));
- data.diary.forEach((x,i)=>add(x.image,`活動日記${i+1}`));
- data.gallery.forEach((x,i)=>add(x.url,`活動イメージ${i+1}`));
- data.sponsors.forEach((x,i)=>add(x.image,`スポンサー${i+1}`));
- return map;
-}
 function fitStyle(f={}){return `object-position:${f.x??50}% ${f.y??50}%;transform:scale(${f.scale||1})`}
-function setPath(path,val){const p=path.split('.');let o=data;while(p.length>1){const k=p.shift();if(o[k]==null)o[k]={};o=o[k]}o[p[0]]=val}
-function imgEditor(path,label,url,f={...blankFit}){
- const base=path.replace(/\.(url|image)$/,'');
- return `<div class="imgedit"><div><div class="previewBox"><img src="${esc(url||'')}" style="${fitStyle(f)}" onerror="this.style.opacity=.15"></div><p class="muted small">現在選択中の写真</p></div><div><div class="field"><label>${label} URL</label><input data-path="${path}" value="${esc(url||'')}" placeholder="画像管理からURLコピー、または選択"></div><div class="actions"><button class="btn blue pickImage" data-path="${path}">画像管理から選択</button></div><div class="grid3"><div><label>拡大 ${Math.round((f.scale||1)*100)}%</label><input type="range" min="0.3" max="2" step="0.01" data-path="${base}.fit.scale" value="${f.scale||1}"></div><div><label>横位置</label><input type="range" min="0" max="100" data-path="${base}.fit.x" value="${f.x??50}"></div><div><label>縦位置</label><input type="range" min="0" max="100" data-path="${base}.fit.y" value="${f.y??50}"></div></div><button class="btn light resetFit" data-path="${base}.fit">画像位置をリセット</button></div></div>`
-}
+function imgEditor(path,label,url,fit={...blankFit}){const key=path.split('.').pop(); const prop=(key==='image')?'image':'url'; const base=path.replace(/\.(url|image)$/,''); return `<div class="imgedit"><div><div class="previewBox"><img src="${esc(url||'')}" style="${fitStyle(fit)}" onerror="this.style.opacity=.15"></div><p class="muted small">選択中の写真をここで確認できます。</p></div><div><div class="field"><label>${label} URL</label><input data-path="${path}" value="${esc(url||'')}" placeholder="assets/uploads/xxx.jpg または https://..."></div><div class="grid3"><div><label>拡大 ${Math.round((fit.scale||1)*100)}%</label><input type="range" min="0.3" max="2" step="0.01" data-path="${base}.fit.scale" value="${fit.scale||1}"></div><div><label>横位置</label><input type="range" min="0" max="100" step="1" data-path="${base}.fit.x" value="${fit.x??50}"></div><div><label>縦位置</label><input type="range" min="0" max="100" step="1" data-path="${base}.fit.y" value="${fit.y??50}"></div></div><button class="btn light resetFit" data-path="${base}.fit">画像位置をリセット</button></div></div>`}
+function getPath(path){return path.split('.').reduce((a,k)=>a?.[k],data)} function setPath(path,val){const p=path.split('.');let o=data;while(p.length>1){const k=p.shift();if(o[k]==null)o[k]={};o=o[k]}o[p[0]]=val}
 function fill(){data=norm(data); ['heroCopy','heroLead','aboutTitle','aboutText','programLead','diaryLead','staffText','sponsorText','lineUrl','mail','newsLine','recruitStatus','seoTitle','seoDescription','views'].forEach(id=>{$(id).value=data[id]??''}); renderAll()}
 function controls(arr,i){return `<div class="actions"><button class="btn light up" data-arr="${arr}" data-i="${i}">↑</button><button class="btn light down" data-arr="${arr}" data-i="${i}">↓</button><button class="btn red del" data-arr="${arr}" data-i="${i}">削除</button></div>`}
 function renderAll(){
- $('slideList').innerHTML=data.slides.map((s,i)=>`<div class="item"><div class="item-head"><b>スライド ${i+1}</b>${controls('slides',i)}</div>${imgEditor(`slides.${i}.url`,'トップ画像',s.url,s.fit)}</div>`).join('');
- $('programList').innerHTML=data.programs.map((p,i)=>`<div class="item"><b>活動内容 ${i+1}</b>${imgEditor(`programs.${i}.image`,'画像',p.image,p.fit)}<div class="grid"><div class="field"><label>タイトル</label><input data-path="programs.${i}.title" value="${esc(p.title)}"></div><div class="field"><label>説明文</label><textarea data-path="programs.${i}.text">${esc(p.text)}</textarea></div></div></div>`).join('');
- $('galleryList').innerHTML=data.gallery.map((g,i)=>`<div class="item"><div class="item-head"><b>活動イメージ ${i+1}</b>${controls('gallery',i)}</div>${imgEditor(`gallery.${i}.url`,'画像',g.url,g.fit)}<div class="field"><label>タイトル</label><input data-path="gallery.${i}.title" value="${esc(g.title)}"></div></div>`).join('');
- $('diaryList').innerHTML=data.diary.map((p,i)=>`<div class="item"><div class="item-head"><b>日記 ${i+1}</b>${controls('diary',i)}</div>${imgEditor(`diary.${i}.image`,'画像',p.image,p.fit)}<div class="grid"><div class="field"><label>日付</label><input data-path="diary.${i}.date" value="${esc(p.date)}"></div><div class="field"><label>タイトル</label><input data-path="diary.${i}.title" value="${esc(p.title)}"></div></div><div class="field"><label>本文</label><textarea data-path="diary.${i}.body">${esc(p.body)}</textarea></div></div>`).join('');
- $('scheduleList').innerHTML=data.schedule.map((s,i)=>`<div class="item"><div class="item-head"><b>予定 ${i+1}</b>${controls('schedule',i)}</div><div class="grid"><div class="field"><label>日付</label><input data-path="schedule.${i}.date" value="${esc(s.date)}"></div><div class="field"><label>内容</label><input data-path="schedule.${i}.title" value="${esc(s.title)}"></div><div class="field"><label>場所</label><input data-path="schedule.${i}.place" value="${esc(s.place)}"></div><div class="field"><label>時間</label><input data-path="schedule.${i}.time" value="${esc(s.time)}"></div></div></div>`).join('');
- $('faqList').innerHTML=data.faq.map((f,i)=>`<div class="item"><div class="item-head"><b>FAQ ${i+1}</b>${controls('faq',i)}</div><div class="field"><label>質問</label><input data-path="faq.${i}.q" value="${esc(f.q)}"></div><div class="field"><label>回答</label><textarea data-path="faq.${i}.a">${esc(f.a)}</textarea></div></div>`).join('');
- $('sponsorList').innerHTML=data.sponsors.map((s,i)=>`<div class="item"><div class="item-head"><b>スポンサー ${i+1}</b>${controls('sponsors',i)}</div>${imgEditor(`sponsors.${i}.image`,'ロゴ・画像',s.image,s.fit)}<div class="grid"><div class="field"><label>名称</label><input data-path="sponsors.${i}.name" value="${esc(s.name||'')}"></div><div class="field"><label>説明文</label><textarea data-path="sponsors.${i}.text">${esc(s.text||'')}</textarea></div></div></div>`).join('');
- bindDynamic(); renderAssets();
-}
-function bindDynamic(){
- qsa('[data-path]').forEach(el=>{el.oninput=()=>{let v=el.value;if(el.type==='range')v=Number(v);setPath(el.dataset.path,v); if(el.type==='range')renderAll()}});
- qsa('.resetFit').forEach(b=>b.onclick=()=>{setPath(b.dataset.path,{...blankFit});renderAll()});
- qsa('.up').forEach(b=>b.onclick=()=>{const a=data[b.dataset.arr],i=+b.dataset.i;if(i>0){[a[i-1],a[i]]=[a[i],a[i-1]];renderAll()}});
- qsa('.down').forEach(b=>b.onclick=()=>{const a=data[b.dataset.arr],i=+b.dataset.i;if(i<a.length-1){[a[i+1],a[i]]=[a[i],a[i+1]];renderAll()}});
- qsa('.del').forEach(b=>b.onclick=()=>{data[b.dataset.arr].splice(+b.dataset.i,1);renderAll()});
- qsa('.pickImage').forEach(b=>b.onclick=()=>{openImagePicker(b.dataset.path)});
-}
-function openImagePicker(path){
- activateTab('images');
- msg('imageMsg','画像を選んで「この画像を使用」を押してください。','warn');
- window.__pickPath=path;
-}
-function activateTab(id){
- qsa('.navbtn').forEach(x=>x.classList.toggle('active',x.dataset.tab===id));
- qsa('.tabsec').forEach(s=>s.classList.add('hidden')); $(id).classList.remove('hidden');
- $('pageTitle').textContent=document.querySelector(`.navbtn[data-tab="${id}"]`)?.textContent||'管理画面';
-}
-qsa('.navbtn').forEach(t=>t.onclick=()=>activateTab(t.dataset.tab));
+$('slideList').innerHTML=data.slides.map((s,i)=>`<div class="item"><div class="item-head"><b>スライド ${i+1}</b>${controls('slides',i)}</div>${imgEditor(`slides.${i}.url`,'トップ画像',s.url,s.fit)}</div>`).join('');
+$('programList').innerHTML=data.programs.map((p,i)=>`<div class="item"><b>活動内容 ${i+1}</b>${imgEditor(`programs.${i}.image`,'画像',p.image,p.fit)}<div class="grid"><div class="field"><label>タイトル</label><input data-path="programs.${i}.title" value="${esc(p.title)}"></div><div class="field"><label>説明文</label><textarea data-path="programs.${i}.text">${esc(p.text)}</textarea></div></div></div>`).join('');
+$('galleryList').innerHTML=data.gallery.map((g,i)=>`<div class="item"><div class="item-head"><b>活動イメージ ${i+1}</b>${controls('gallery',i)}</div>${imgEditor(`gallery.${i}.url`,'画像',g.url,g.fit)}<div class="field"><label>タイトル</label><input data-path="gallery.${i}.title" value="${esc(g.title)}"></div></div>`).join('');
+$('diaryList').innerHTML=data.diary.map((p,i)=>`<div class="item"><div class="item-head"><b>日記 ${i+1}</b>${controls('diary',i)}</div>${imgEditor(`diary.${i}.image`,'画像',p.image,p.fit)}<div class="grid"><div class="field"><label>日付</label><input data-path="diary.${i}.date" value="${esc(p.date)}"></div><div class="field"><label>タイトル</label><input data-path="diary.${i}.title" value="${esc(p.title)}"></div></div><div class="field"><label>本文</label><textarea data-path="diary.${i}.body">${esc(p.body)}</textarea></div></div>`).join('');
+$('scheduleList').innerHTML=data.schedule.map((s,i)=>`<div class="item"><div class="item-head"><b>予定 ${i+1}</b>${controls('schedule',i)}</div><div class="grid"><div class="field"><label>日付</label><input data-path="schedule.${i}.date" value="${esc(s.date)}"></div><div class="field"><label>内容</label><input data-path="schedule.${i}.title" value="${esc(s.title)}"></div><div class="field"><label>場所</label><input data-path="schedule.${i}.place" value="${esc(s.place)}"></div><div class="field"><label>時間</label><input data-path="schedule.${i}.time" value="${esc(s.time)}"></div></div></div>`).join('');
+$('faqList').innerHTML=data.faq.map((f,i)=>`<div class="item"><div class="item-head"><b>FAQ ${i+1}</b>${controls('faq',i)}</div><div class="field"><label>質問</label><input data-path="faq.${i}.q" value="${esc(f.q)}"></div><div class="field"><label>回答</label><textarea data-path="faq.${i}.a">${esc(f.a)}</textarea></div></div>`).join('');
+$('sponsorList').innerHTML=data.sponsors.map((s,i)=>`<div class="item"><div class="item-head"><b>スポンサー ${i+1}</b>${controls('sponsors',i)}</div>${imgEditor(`sponsors.${i}.image`,'ロゴ・画像',s.image,s.fit)}<div class="grid"><div class="field"><label>名称</label><input data-path="sponsors.${i}.name" value="${esc(s.name||'')}"></div><div class="field"><label>説明文</label><textarea data-path="sponsors.${i}.text">${esc(s.text||'')}</textarea></div></div></div>`).join(''); bindDynamic()}
+function bindDynamic(){qsa('[data-path]').forEach(el=>{el.oninput=()=>{let v=el.value;if(el.type==='range')v=Number(v);setPath(el.dataset.path,v); if(el.type==='range')renderAll()}}); qsa('.resetFit').forEach(b=>b.onclick=()=>{setPath(b.dataset.path,{...blankFit});renderAll()}); qsa('.up').forEach(b=>b.onclick=()=>{const a=data[b.dataset.arr],i=+b.dataset.i;if(i>0){[a[i-1],a[i]]=[a[i],a[i-1]];renderAll()}}); qsa('.down').forEach(b=>b.onclick=()=>{const a=data[b.dataset.arr],i=+b.dataset.i;if(i<a.length-1){[a[i+1],a[i]]=[a[i],a[i+1]];renderAll()}}); qsa('.del').forEach(b=>b.onclick=()=>{data[b.dataset.arr].splice(+b.dataset.i,1);renderAll()})}
+qsa('.tab').forEach(t=>t.onclick=()=>{qsa('.tab').forEach(x=>x.classList.remove('active'));t.classList.add('active');qsa('.tabsec').forEach(s=>s.classList.add('hidden'));$(t.dataset.tab).classList.remove('hidden')});
 ['heroCopy','heroLead','aboutTitle','aboutText','programLead','diaryLead','staffText','sponsorText','lineUrl','mail','newsLine','recruitStatus','seoTitle','seoDescription','views'].forEach(id=>$(id)?.addEventListener('input',()=>{data[id]=id==='views'?Number($(id).value||0):$(id).value}));
-$('addSlide').onclick=()=>{data.slides.push({url:'',fit:{...blankFit}});renderAll()};
-$('addGallery').onclick=()=>{data.gallery.push({title:'新しい写真',url:'',fit:{...blankFit}});renderAll()};
-$('addDiary').onclick=()=>{data.diary.unshift({date:new Date().toISOString().slice(0,10).replaceAll('-','.'),title:'新しい活動日記',body:'本文を入力してください。',image:'',fit:{...blankFit}});renderAll()};
-$('addSchedule').onclick=()=>{data.schedule.push({date:'日付',title:'予定',place:'会場',time:'時間'});renderAll()};
-$('addFaq').onclick=()=>{data.faq.push({q:'質問を入力',a:'回答を入力'});renderAll()};
-$('addSponsor').onclick=()=>{data.sponsors.push({name:'スポンサー名',text:'説明文',image:'',fit:{...blankFit}});renderAll()};
-
-function token(){return localStorage.getItem('ninja_github_token')||''}
-$('ghToken').value=token();
-$('saveToken').onclick=()=>{localStorage.setItem('ninja_github_token',$('ghToken').value.trim());msg('imageMsg','Tokenを保存しました')};
-async function gh(path,opts={}){
- const t=token(); if(!t)throw new Error('GitHub Tokenを入力してください');
- const res=await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}`,{...opts,headers:{'Authorization':'Bearer '+t,'Accept':'application/vnd.github+json','Content-Type':'application/json','X-GitHub-Api-Version':'2022-11-28',...(opts.headers||{})}});
- const j=await res.json().catch(()=>({})); if(!res.ok)throw new Error((j.message||res.statusText)+` (${res.status})`); return j;
-}
-$('testConn').onclick=async()=>{try{await gh('');$('connectionState').textContent='GitHub接続：成功';msg('imageMsg','GitHub接続成功')}catch(e){$('connectionState').textContent='GitHub接続：失敗';msg('imageMsg','接続失敗: '+e.message,'bad')}};
-const safeName=n=>n.toLowerCase().replace(/[^a-z0-9._-]+/g,'-').replace(/-+/g,'-').replace(/^-|-$/g,'');
+$('addSlide').onclick=()=>{data.slides.push({url:'assets/uploads/new.jpg',fit:{...blankFit}});renderAll()}; $('addGallery').onclick=()=>{data.gallery.push({title:'新しい写真',url:'assets/uploads/new.jpg',fit:{...blankFit}});renderAll()}; $('addDiary').onclick=()=>{data.diary.unshift({date:new Date().toISOString().slice(0,10).replaceAll('-','.'),title:'新しい活動日記',body:'本文を入力してください。',image:'assets/uploads/new.jpg',fit:{...blankFit}});renderAll()}; $('addSchedule').onclick=()=>{data.schedule.push({date:'日付',title:'予定',place:'会場',time:'時間'});renderAll()}; $('addFaq').onclick=()=>{data.faq.push({q:'質問を入力',a:'回答を入力'});renderAll()}; $('addSponsor').onclick=()=>{data.sponsors.push({name:'スポンサー名',text:'説明文',image:'',fit:{...blankFit}});renderAll()};
+function token(){return localStorage.getItem('ninja_github_token')||''} $('ghToken').value=token(); $('saveToken').onclick=()=>{localStorage.setItem('ninja_github_token',$('ghToken').value.trim());msg('imageMsg','Tokenを保存しました')};
+const safeName=n=>n.toLowerCase().replace(/\.[^.]+$/,'').replace(/[^a-z0-9._-]+/g,'-').replace(/-+/g,'-').replace(/^-|-$/g,'')+(n.match(/\.[^.]+$/)?.[0]||'.jpg').toLowerCase();
 async function toBase64(file){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(String(r.result).split(',')[1]);r.onerror=rej;r.readAsDataURL(file)})}
-async function fileHash(file){const buf=await file.arrayBuffer();const hash=await crypto.subtle.digest('SHA-256',buf);return [...new Uint8Array(hash)].map(b=>b.toString(16).padStart(2,'0')).join('')}
-function renderSelected(){const box=$('selectedPreview'); if(!selectedFiles.length){box.innerHTML='';return} box.innerHTML=selectedFiles.map(f=>`<div><img src="${URL.createObjectURL(f)}"><b>${esc(f.name)}</b><p class="muted small">${Math.round(f.size/1024)} KB</p></div>`).join('')}
-$('uploadFiles').onchange=e=>{selectedFiles=[...e.target.files].filter(f=>f.type.startsWith('image/'));renderSelected()};
-const drop=$('uploadDrop'); drop.ondragover=e=>{e.preventDefault();drop.classList.add('drag')}; drop.ondragleave=()=>drop.classList.remove('drag'); drop.ondrop=e=>{e.preventDefault();drop.classList.remove('drag');selectedFiles=[...e.dataTransfer.files].filter(f=>f.type.startsWith('image/'));renderSelected()};
-async function uploadFiles(files){
- if(!files?.length)throw new Error('画像を選択してください');
- const path=$('ghPath').value.replace(/^\/+|\/+$/g,'')||'assets/uploads';
- $('uploadProgress').classList.remove('hidden'); const bar=$('uploadProgress').querySelector('span');
- let done=[];
- for(let i=0;i<files.length;i++){
-   const file=files[i], clean=safeName(file.name), hash=await fileHash(file);
-   if(assets.some(a=>a.hash===hash)){done.push(`重複のためスキップ: ${file.name}`); continue;}
-   let target=`${path}/${clean || Date.now()+'.jpg'}`;
-   let existing=null;
-   if($('overwriteSame').checked){try{existing=await gh(target)}catch(e){}}
-   msg('imageMsg',`アップロード中: ${file.name}`,'warn');
-   await gh(target,{method:'PUT',body:JSON.stringify({message:`upload ${target}`,content:await toBase64(file),branch:BRANCH,sha:existing?.sha})});
-   done.push(baseUrl()+target); bar.style.width=Math.round(((i+1)/files.length)*100)+'%';
- }
- selectedFiles=[];renderSelected(); await loadAssets(); msg('imageMsg','アップロード完了\n'+done.join('\n'));
- setTimeout(()=>$('uploadProgress').classList.add('hidden'),800);
-}
-$('uploadBtn').onclick=()=>uploadFiles(selectedFiles).catch(e=>msg('imageMsg','アップロード失敗: '+e.message,'bad'));
-async function loadAssets(){
- try{
-  const path=$('ghPath').value.replace(/^\/+|\/+$/g,'')||'assets/uploads';
-  const list=await gh(path);
-  assets=(Array.isArray(list)?list:[]).filter(x=>x.type==='file'&&/\.(png|jpe?g|gif|webp)$/i.test(x.name)).map(x=>({name:x.name,path:x.path,sha:x.sha,size:x.size||0,url:baseUrl()+x.path,preview:x.download_url||baseUrl()+x.path,updated:x.git_url||'',hash:null}));
-  renderAssets(); msg('imageMsg',`GitHubと同期しました（${assets.length}件）`); $('connectionState').textContent='GitHub Pages：同期済み';
- }catch(e){msg('imageMsg','画像一覧の読み込み失敗: '+e.message,'bad')}
-}
-$('reloadAssets').onclick=loadAssets;
-function renderAssets(){
- const used=collectUrls(), q=($('assetSearch')?.value||'').toLowerCase(), filter=$('assetFilter')?.value||'all', sort=$('assetSort')?.value||'new';
- let list=assets.map(a=>({...a,usedBy:used.get(a.url)||used.get(a.path)||[]}));
- list=list.filter(a=>{const text=(a.name+' '+a.url+' '+a.usedBy.join(' ')).toLowerCase(); if(q&&!text.includes(q))return false; if(filter==='used'&&!a.usedBy.length)return false; if(filter==='unused'&&a.usedBy.length)return false; return true;});
- list.sort((a,b)=>sort==='name'?a.name.localeCompare(b.name):sort==='size'?b.size-a.size:sort==='old'?a.name.localeCompare(b.name):b.name.localeCompare(a.name));
- $('assetStats').textContent=`表示 ${list.length}件 / 全体 ${assets.length}件　使用中 ${assets.filter(a=>(used.get(a.url)||[]).length).length}件　未使用 ${assets.filter(a=>!(used.get(a.url)||[]).length).length}件`;
- $('assetList').innerHTML=list.map((a,i)=>`<div class="asset ${selectedAssets.has(a.path)?'selected':''}"><input class="check assetCheck" type="checkbox" data-path="${a.path}" ${selectedAssets.has(a.path)?'checked':''}><img class="thumb" src="${a.preview}" data-path="${a.path}" onerror="this.style.opacity=.15"><div class="body"><b title="${esc(a.name)}">${esc(a.name)}</b><p class="meta">${Math.round(a.size/1024)} KB</p><div>${a.usedBy.length?a.usedBy.map(u=>`<span class="badge">${esc(u)}</span>`).join(''):'<span class="badge unused">未使用</span>'}</div><div class="actions"><button class="btn light copyUrl" data-url="${a.url}">URL</button><button class="btn blue useImg" data-url="${a.url}">この画像を使用</button><button class="btn red delAsset" data-path="${a.path}" data-sha="${a.sha}">削除</button></div></div></div>`).join('')||'<p class="muted">画像がありません。</p>';
- qsa('.assetCheck').forEach(c=>c.onchange=()=>{c.checked?selectedAssets.add(c.dataset.path):selectedAssets.delete(c.dataset.path);renderAssets()});
- qsa('.copyUrl').forEach(b=>b.onclick=async()=>{await navigator.clipboard.writeText(b.dataset.url);b.textContent='コピー済み'});
- qsa('.useImg').forEach(b=>b.onclick=()=>{if(window.__pickPath){setPath(window.__pickPath,b.dataset.url);window.__pickPath=null;renderAll();msg('imageMsg','画像を設定しました。公開サイトへ反映するには保存してください。')}else{navigator.clipboard.writeText(b.dataset.url);b.textContent='URLコピー済み'}});
- qsa('.delAsset').forEach(b=>b.onclick=()=>deleteAssets([{path:b.dataset.path,sha:b.dataset.sha}]));
- qsa('.thumb').forEach(img=>img.onclick=()=>openModal(assets.findIndex(a=>a.path===img.dataset.path)));
-}
-['assetSearch','assetFilter','assetSort'].forEach(id=>$(id)?.addEventListener('input',renderAssets));
-$('selectUnused').onclick=()=>{const used=collectUrls(); assets.forEach(a=>{if(!(used.get(a.url)||[]).length)selectedAssets.add(a.path)});renderAssets()};
-$('clearSelection').onclick=()=>{selectedAssets.clear();renderAssets()};
-$('deleteSelected').onclick=()=>deleteAssets(assets.filter(a=>selectedAssets.has(a.path)));
-async function deleteAssets(list){
- if(!list.length){msg('imageMsg','削除対象がありません','warn');return}
- if(!confirm(`${list.length}件の画像をGitHubから削除します。よろしいですか？`))return;
- for(const a of list){await gh(a.path,{method:'DELETE',body:JSON.stringify({message:`delete ${a.path}`,sha:a.sha,branch:BRANCH})});selectedAssets.delete(a.path)}
- await loadAssets(); msg('imageMsg','削除しました');
-}
-function openModal(idx){modalIndex=idx<0?0:idx;const a=assets[modalIndex];if(!a)return;$('modal').classList.remove('hidden');$('modalTitle').textContent=a.name;$('modalImg').src=a.preview;$('modalOpen').href=a.url}
-$('modalClose').onclick=()=>$('modal').classList.add('hidden');
-$('modalPrev').onclick=()=>openModal((modalIndex-1+assets.length)%assets.length);
-$('modalNext').onclick=()=>openModal((modalIndex+1)%assets.length);
-
-const {initializeApp}=await import('https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js');
-const {getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut,onAuthStateChanged}=await import('https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js');
-const {getFirestore,doc,getDoc,setDoc,serverTimestamp}=await import('https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js');
-const appFb=initializeApp(firebaseConfig), auth=getAuth(appFb), db=getFirestore(appFb);
-$('loginMode').onclick=()=>{mode='login';$('authBtn').textContent='ログイン'};
-$('regMode').onclick=()=>{mode='register';$('authBtn').textContent='初回管理者登録'};
-$('authBtn').onclick=async()=>{try{const email=$('email').value.trim();if(mode==='register'){if(!isAdmin(email))throw new Error('許可された管理者メールではありません');await createUserWithEmailAndPassword(auth,email,$('password').value)}else await signInWithEmailAndPassword(auth,email,$('password').value)}catch(e){msg('loginMsg','ログイン/登録失敗: '+(e.message||e.code),'bad')}};
-$('logoutBtn').onclick=()=>signOut(auth);
-onAuthStateChanged(auth,async user=>{
- if(!user){$('login').classList.remove('hidden');$('app').classList.add('hidden');return}
- if(!isAdmin(user.email)){await signOut(auth);msg('loginMsg','このメールは管理者ではありません','bad');return}
- $('userBadge').textContent=user.email; $('login').classList.add('hidden'); $('app').classList.remove('hidden');
- try{const snap=await getDoc(doc(db,'site','content'));data=norm(snap.exists()?snap.data():defaults);fill();$('lastSaved').textContent='読み込み完了'}catch(e){msg('saveMsg','Firestore読み込み失敗: '+e.message,'bad');data=norm(defaults);fill()}
-});
-function collect(){
- ['heroCopy','heroLead','aboutTitle','aboutText','programLead','diaryLead','staffText','sponsorText','lineUrl','mail','newsLine','recruitStatus','seoTitle','seoDescription'].forEach(id=>data[id]=$(id).value);
- data.views=Number($('views').value||0); data=norm(data); return data;
-}
-async function saveSite(){
- const btn=$('saveBtn'); try{
-  collect(); const json=JSON.stringify(data); if(json.length>900000)throw new Error('保存データが大きすぎます。画像のBase64ではなくURLだけを入れてください。');
-  btn.disabled=true;btn.innerHTML='<span class="spinner"></span> 保存中…';msg('saveMsg','保存中です…','warn');
-  await setDoc(doc(db,'site','content'),{...data,updatedAt:serverTimestamp()},{merge:true});
-  msg('saveMsg','保存しました。公開サイトへ反映されます。');$('lastSaved').textContent='保存済み '+new Date().toLocaleTimeString();btn.textContent='✓ 保存しました';setTimeout(()=>{btn.disabled=false;btn.textContent='公開サイトへ保存'},1400);
- }catch(e){btn.disabled=false;btn.textContent='公開サイトへ保存';msg('saveMsg','保存失敗: '+(e.message||e.code),'bad')}
-}
-$('saveBtn').onclick=saveSite; $('quickSave').onclick=saveSite;
-$('resetBtn').onclick=()=>{data=norm(defaults);fill();msg('saveMsg','初期データを再表示しました。保存するまでは公開サイトへ反映されません。','warn')};
-fill();
-</script>
-</body>
-</html>
+async function gh(path,opts={}){const t=token();if(!t)throw new Error('GitHub Tokenを入力してください');const res=await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}`,{...opts,headers:{'Authorization':'Bearer '+t,'Accept':'application/vnd.github+json','Content-Type':'application/json',...(opts.headers||{})}});const j=await res.json().catch(()=>({}));if(!res.ok)throw new Error((j.message||res.statusText)+` (${res.status})`);return j}
+function relativeUrl(u){let s=String(u||''); const prefix=baseUrl(); if(s.startsWith(prefix)) s=s.slice(prefix.length); return s.replace(/^\/+/, '').split('?')[0];}
+function collectUsed(){const used={}; const add=(url,label)=>{const r=relativeUrl(url); if(!r)return; (used[r]||(used[r]=[])).push(label)}; (data.slides||[]).forEach((x,i)=>add(x.url||x,`トップ画像${i+1}`)); (data.programs||[]).forEach((x,i)=>add(x.image||x.url,`活動内容${i+1}`)); (data.gallery||[]).forEach((x,i)=>add(x.url,`活動イメージ${i+1}`)); (data.diary||[]).forEach((x,i)=>add(x.image||x.url,`活動日記${i+1}`)); (data.sponsors||[]).forEach((x,i)=>add(x.image||x.url,`スポンサー${i+1}`)); return used;}
+function renderSelected(){const box=$('selectedPreview'); if(!selectedFiles.length){box.innerHTML='';return} box.innerHTML=selectedFiles.map((f,i)=>`<div class="asset"><img src="${URL.createObjectURL(f)}"><b>${esc(f.name)}</b><p class="muted small">${Math.round(f.size/1024)} KB</p></div>`).join('')}
+async function uploadFiles(files){if(!files||!files.length)throw new Error('画像を選択してください');const path=$('ghPath').value.replace(/^\/+|\/+$/g,'')||'assets/uploads';let done=[];let existing={};try{const list=await gh(path);(Array.isArray(list)?list:[]).forEach(x=>existing[x.name]=x)}catch(e){}for(const file of files){msg('imageMsg',`アップロード中: ${file.name}`,'warn');const name=safeName(file.name);const body={message:`upload ${name}`,content:await toBase64(file),branch:BRANCH};if(existing[name]?.sha) body.sha=existing[name].sha;await gh(`${path}/${name}`,{method:'PUT',body:JSON.stringify(body)});done.push(baseUrl()+`${path}/${name}`);}msg('imageMsg','アップロード完了。同じファイル名は上書きしました。\n'+done.join('\n'));selectedFiles=[];renderSelected();await loadAssets()}
+$('uploadFiles').onchange=e=>{selectedFiles=[...e.target.files].filter(f=>f.type.startsWith('image/'));renderSelected()};$('uploadBtn').onclick=()=>uploadFiles(selectedFiles).catch(e=>msg('imageMsg','アップロード失敗: '+e.message,'bad')); const drop=$('uploadDrop');drop.ondragover=e=>{e.preventDefault();drop.classList.add('drag')};drop.ondragleave=()=>drop.classList.remove('drag');drop.ondrop=e=>{e.preventDefault();drop.classList.remove('drag');selectedFiles=[...e.dataTransfer.files].filter(f=>f.type.startsWith('image/'));renderSelected()};
+function filteredAssets(){const used=collectUsed(); const q=($('assetSearch')?.value||'').toLowerCase(); const filter=$('assetFilter')?.value||'all'; let items=assetCache.map(x=>({...x,pageUrl:baseUrl()+x.path,usedBy:used[x.path]||[]})); if(filter==='used')items=items.filter(x=>x.usedBy.length); if(filter==='unused')items=items.filter(x=>!x.usedBy.length); if(q)items=items.filter(x=>(x.name+' '+x.path+' '+x.usedBy.join(' ')).toLowerCase().includes(q)); const sort=$('assetSort')?.value||'new'; items.sort((a,b)=>sort==='name'?a.name.localeCompare(b.name):sort==='size'?(b.size||0)-(a.size||0):sort==='old'?(new Date(a.created||0)-new Date(b.created||0)):(new Date(b.created||0)-new Date(a.created||0))); return items;}
+function renderAssets(){const files=filteredAssets(); $('assetList').innerHTML=files.map(x=>{const preview=x.download_url||x.pageUrl; const checked=selectedAssets.has(x.path)?'checked':''; const badges=x.usedBy.length?x.usedBy.map(u=>`<span class="usedBadge">${esc(u)}</span>`).join(''):'<span class="unusedBadge">未使用</span>';return `<div class="asset ${checked?'selected':''}"><input class="check assetCheck" type="checkbox" data-path="${esc(x.path)}" ${checked}><img class="openPreview" data-url="${preview}" data-name="${esc(x.name)}" src="${preview}" onerror="this.style.opacity=.15"><div class="assetName">${esc(x.name)}</div><p class="muted small">${Math.round((x.size||0)/1024)} KB</p><div>${badges}</div><input value="${x.pageUrl}" readonly><div class="actions"><button class="btn light copyUrl" data-url="${x.pageUrl}">URLコピー</button><a class="btn light" href="${x.pageUrl}" target="_blank">表示</a><button class="btn red deleteOne" data-path="${esc(x.path)}" data-sha="${esc(x.sha)}" data-name="${esc(x.name)}">削除</button></div></div>`}).join('')||'<p class="muted">画像がありません。</p>'; qsa('.assetCheck').forEach(c=>c.onchange=()=>{c.checked?selectedAssets.add(c.dataset.path):selectedAssets.delete(c.dataset.path);renderAssets()});qsa('.copyUrl').forEach(b=>b.onclick=async()=>{await navigator.clipboard.writeText(b.dataset.url);b.textContent='コピー済み'});qsa('.openPreview').forEach(img=>img.onclick=()=>openModal(img.dataset.url,img.dataset.name));qsa('.deleteOne').forEach(b=>b.onclick=()=>deleteFiles([{path:b.dataset.path,sha:b.dataset.sha,name:b.dataset.name}]));}
+function openModal(url,name){$('modalImg').src=url;$('modalTitle').textContent=name||'画像プレビュー';$('imageModal').classList.add('open')} $('closeModal').onclick=()=>$('imageModal').classList.remove('open'); $('imageModal').onclick=e=>{if(e.target.id==='imageModal')$('imageModal').classList.remove('open')};
+async function loadAssets(){try{const path=$('ghPath').value.replace(/^\/+|\/+$/g,'')||'assets/uploads';const list=await gh(path);assetCache=(Array.isArray(list)?list:[]).filter(x=>x.type==='file'&&/\.(png|jpe?g|gif|webp)$/i.test(x.name));renderAssets();msg('imageMsg',`GitHubと同期しました（${assetCache.length}件）`)}catch(e){msg('imageMsg','画像一覧の読み込み失敗: '+e.message,'bad')}} $('reloadAssets').onclick=loadAssets;
+async function deleteFiles(items){if(!items.length)return; const names=items.map(x=>x.name).join('\n'); if(!confirm(`以下の画像をGitHubから削除します。\n\n${names}\n\n使用中の画像を削除すると公開サイトで表示されなくなります。`))return; try{for(const it of items){await gh(it.path,{method:'DELETE',body:JSON.stringify({message:`delete ${it.name}`,sha:it.sha,branch:BRANCH})});selectedAssets.delete(it.path)}msg('imageMsg','削除しました。画像一覧を再読込します。');await loadAssets()}catch(e){msg('imageMsg','削除失敗: '+e.message,'bad')}}
+$('assetSearch')?.addEventListener('input',renderAssets);$('assetSort')?.addEventListener('change',renderAssets);$('assetFilter')?.addEventListener('change',renderAssets);$('selectUnused').onclick=()=>{const used=collectUsed();filteredAssets().forEach(x=>{if(!used[x.path])selectedAssets.add(x.path)});renderAssets()};$('deleteSelected').onclick=()=>deleteFiles(assetCache.filter(x=>selectedAssets.has(x.path))).catch(e=>msg('imageMsg','削除失敗: '+e.message,'bad'));
+const {initializeApp}=await import('https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js'); const {getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut,onAuthStateChanged}=await import('https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js'); const {getFirestore,doc,getDoc,setDoc,serverTimestamp}=await import('https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js'); const app=initializeApp(firebaseConfig), auth=getAuth(app), db=getFirestore(app);
+$('loginMode').onclick=()=>{mode='login';$('authBtn').textContent='ログイン'};$('regMode').onclick=()=>{mode='register';$('authBtn').textContent='初回管理者登録'};$('authBtn').onclick=async()=>{try{const email=$('email').value.trim();if(mode==='register'){if(!isAdmin(email))throw new Error('許可された管理者メールではありません');await createUserWithEmailAndPassword(auth,email,$('password').value)}else await signInWithEmailAndPassword(auth,email,$('password').value)}catch(e){msg('loginMsg','ログイン/登録失敗: '+(e.message||e.code),'bad')}};$('logoutBtn').onclick=()=>signOut(auth);
+onAuthStateChanged(auth,async user=>{if(!user){$('login').classList.remove('hidden');$('app').classList.add('hidden');return}if(!isAdmin(user.email)){await signOut(auth);msg('loginMsg','このメールは管理者ではありません','bad');return}$('userBadge').textContent=user.email;$('login').classList.add('hidden');$('app').classList.remove('hidden');try{const snap=await getDoc(doc(db,'site','content'));data=norm(snap.exists()?snap.data():defaults);fill();$('lastSaved').textContent='読み込み完了'}catch(e){msg('saveMsg','Firestore読み込み失敗: '+e.message,'bad');data=norm(defaults);fill()}});
+function collect(){['heroCopy','heroLead','aboutTitle','aboutText','programLead','diaryLead','staffText','sponsorText','lineUrl','mail','newsLine','recruitStatus','seoTitle','seoDescription'].forEach(id=>data[id]=$(id).value);data.views=Number($('views').value||0);data=norm(data);return data}
+$('saveBtn').onclick=async()=>{const btn=$('saveBtn');try{collect();const json=JSON.stringify(data);if(json.length>900000)throw new Error('保存データが大きすぎます。画像のBase64ではなくURLだけを入れてください。');btn.disabled=true;btn.innerHTML='<span class="spinner"></span> 保存中…';msg('saveMsg','保存中です…','warn');await setDoc(doc(db,'site','content'),{...data,updatedAt:serverTimestamp()},{merge:true});msg('saveMsg','保存しました。公開サイトへ反映されます。');$('lastSaved').textContent='保存済み '+new Date().toLocaleTimeString();btn.textContent='✓ 保存しました';setTimeout(()=>{btn.disabled=false;btn.textContent='公開サイトへ保存'},1500)}catch(e){btn.disabled=false;btn.textContent='公開サイトへ保存';msg('saveMsg','保存失敗: '+(e.message||e.code),'bad')}};$('resetBtn').onclick=()=>{data=norm(defaults);fill();msg('saveMsg','初期データを再表示しました。保存するまでは公開サイトへ反映されません。','warn')};fill();
+</script></body></html>
