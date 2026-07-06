@@ -466,80 +466,9 @@ body:has(.photo:hover),body:has(.photo.open){overflow:auto!important}
 
 
 
-/* v20.10 gallery detail panel: 写真はそのまま、説明は下の専用カードへ表示 */
-.galleryLead{margin-top:-8px;margin-bottom:26px;max-width:760px!important}
-.gallery{
-  display:grid!important;
-  grid-template-columns:1.55fr .95fr .95fr!important;
-  grid-auto-rows:215px!important;
-  gap:18px!important;
-  max-width:1060px!important;
-  margin:30px auto 0!important;
-  align-items:stretch!important;
-}
-.photo,.photo.big{
-  position:relative!important;
-  left:auto!important;right:auto!important;top:auto!important;bottom:auto!important;
-  width:auto!important;height:auto!important;min-width:0!important;max-width:none!important;min-height:0!important;max-height:none!important;
-  grid-row:auto!important;
-  border-radius:26px!important;
-  overflow:hidden!important;
-  cursor:pointer!important;
-  background:#eef1f5!important;
-  box-shadow:0 16px 38px rgba(16,24,40,.08)!important;
-  transform:none!important;
-  transition:transform .4s cubic-bezier(.22,.61,.36,1),box-shadow .4s cubic-bezier(.22,.61,.36,1),outline-color .4s ease!important;
-  outline:3px solid transparent!important;
-}
-.photo.big{grid-row:span 2!important}
-.photo:hover,.photo:focus,.photo.is-active,.photo.open{
-  position:relative!important;
-  transform:translateY(-5px)!important;
-  box-shadow:0 24px 58px rgba(16,24,40,.18)!important;
-  outline-color:rgba(255,59,173,.42)!important;
-  z-index:2!important;
-}
-.photo .imgbox,.photo:hover .imgbox,.photo.open .imgbox{
-  position:absolute!important;inset:0!important;width:100%!important;height:100%!important;margin:0!important;border-radius:0!important;aspect-ratio:auto!important;
-}
-.photo .imgbox img{
-  width:100%!important;height:100%!important;object-fit:cover!important;
-  filter:none!important;opacity:1!important;
-  transition:transform .55s cubic-bezier(.22,.61,.36,1),filter .4s ease!important;
-}
-.photo:hover .imgbox img,.photo:focus .imgbox img,.photo.is-active .imgbox img,.photo.open .imgbox img{transform:scale(1.02)!important;filter:brightness(.92)!important}
-.photo:after{display:none!important}
-.photoOverlay{display:none!important}
-.photoCaption{
-  position:absolute!important;left:18px!important;right:auto!important;bottom:18px!important;z-index:3!important;
-  display:inline-flex!important;align-items:center!important;max-width:calc(100% - 36px)!important;
-  padding:10px 18px!important;border-radius:999px!important;
-  background:rgba(7,8,13,.84)!important;color:#fff!important;
-  font-size:1.02rem!important;font-weight:1000!important;line-height:1.25!important;text-align:left!important;
-  text-shadow:0 2px 10px rgba(0,0,0,.45)!important;backdrop-filter:blur(8px)!important;
-  opacity:1!important;transform:none!important;transition:opacity .4s ease,transform .4s cubic-bezier(.22,.61,.36,1),background .4s ease!important;
-}
-.photo:hover .photoCaption,.photo:focus .photoCaption,.photo.is-active .photoCaption,.photo.open .photoCaption{
-  opacity:1!important;transform:translateY(-4px)!important;background:rgba(7,8,13,.92)!important;
-}
-.galleryDetail{
-  max-width:1060px;margin:22px auto 0;padding:18px;
-  display:grid;grid-template-columns:260px 1fr;gap:22px;align-items:stretch;
-  background:rgba(7,8,13,.92);color:#fff;border-radius:28px;
-  box-shadow:0 24px 70px rgba(16,24,40,.18);
-  opacity:0;transform:translateY(18px);max-height:0;overflow:hidden;pointer-events:none;
-  transition:opacity .52s ease,transform .52s cubic-bezier(.22,.61,.36,1),max-height .52s cubic-bezier(.22,.61,.36,1),padding .52s ease,margin .52s ease;
-}
-.galleryDetail.show{opacity:1;transform:translateY(0);max-height:900px;pointer-events:auto}
-.galleryDetailImage{min-height:180px;border-radius:20px;background-size:cover;background-position:center;box-shadow:inset 0 0 0 1px rgba(255,255,255,.14)}
-.galleryDetailBody{padding:10px 6px;text-align:left!important}
-.galleryDetailLabel{color:var(--pink);font-size:.78rem;letter-spacing:.2em;font-weight:1000;margin-bottom:6px}
-.galleryDetail h3{font-size:clamp(1.55rem,3.2vw,2.6rem);line-height:1.2;font-weight:1000;margin:0 0 14px 0;text-align:left!important}
-.galleryDetail h3:after{content:"";display:block;width:82px;height:4px;border-radius:999px;background:var(--grad);margin-top:12px}
-.galleryDetail p#galleryDetailText{white-space:pre-line;color:#fff;font-weight:850;line-height:1.95;font-size:clamp(.98rem,1.5vw,1.12rem);text-align:left!important;margin:0}
-body:has(.photo:hover),body:has(.photo.open){overflow:auto!important}
-@media(max-width:1000px){.gallery{grid-template-columns:1.25fr 1fr!important;grid-auto-rows:210px!important}.photo.big{grid-row:span 1!important}.galleryDetail{grid-template-columns:220px 1fr}}
-@media(max-width:760px){.gallery{grid-template-columns:1fr!important;grid-auto-rows:270px!important;max-width:100%!important}.photo,.photo.big{grid-row:auto!important}.galleryDetail{grid-template-columns:1fr;padding:16px}.galleryDetailImage{min-height:170px}.galleryDetail h3{font-size:1.45rem}.galleryDetail p#galleryDetailText{font-size:.95rem;line-height:1.8}.photoCaption{font-size:.95rem!important}}
+/* v20.11 gallery click detail panel: hoverではなくクリックで安定表示 */
+.galleryStage{display:grid!important;grid-template-columns:minmax(0,1.18fr) minmax(320px,.82fr)!important;gap:26px!important;align-items:start!important;margin-top:34px!important}.galleryHint{margin-top:10px;color:#667085;font-weight:900;font-size:.95rem}.gallery{display:grid!important;grid-template-columns:1.35fr 1fr!important;grid-auto-rows:178px!important;gap:16px!important;margin-top:0!important;max-width:100%!important;align-items:stretch!important}.photo{appearance:none!important;border:0!important;text-align:left!important;font:inherit!important;position:relative!important;width:100%!important;height:100%!important;min-height:0!important;cursor:pointer!important;background:#eef1f5!important;border-radius:24px!important;overflow:hidden!important;box-shadow:0 14px 34px rgba(16,24,40,.08)!important;transition:transform .32s cubic-bezier(.22,.61,.36,1),box-shadow .32s ease,outline .2s ease!important}.photo.big{grid-row:span 2!important}.photo:hover,.photo:focus-visible{position:relative!important;left:auto!important;right:auto!important;top:auto!important;bottom:auto!important;width:100%!important;height:100%!important;z-index:1!important;transform:translateY(-4px)!important;box-shadow:0 22px 50px rgba(16,24,40,.16)!important}.photo.active{outline:4px solid rgba(255,59,173,.34)!important;box-shadow:0 22px 55px rgba(16,24,40,.18)!important}.photo .imgbox{position:absolute!important;inset:0!important;margin:0!important;border-radius:0!important;aspect-ratio:auto!important}.photo .imgbox img{transform:scale(1)!important;filter:none!important;transition:transform .45s cubic-bezier(.22,.61,.36,1),filter .3s ease!important}.photo:hover .imgbox img,.photo:focus-visible .imgbox img,.photo.active .imgbox img{transform:scale(1.02)!important;filter:brightness(.92)!important}.photo:after{content:""!important;display:block!important;position:absolute!important;inset:45% 0 0!important;background:linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.72))!important;z-index:1!important}.photoCaption{position:absolute!important;left:16px!important;right:16px!important;bottom:16px!important;z-index:2!important;display:flex!important;flex-direction:column!important;gap:4px!important;width:auto!important;max-width:calc(100% - 32px)!important;padding:0!important;background:transparent!important;color:#fff!important;border-radius:0!important;text-shadow:0 3px 14px rgba(0,0,0,.72)!important;backdrop-filter:none!important;opacity:1!important;transform:none!important;transition:none!important}.photo:hover .photoCaption,.photo.open .photoCaption{opacity:1!important;transform:none!important}.photoCaption strong{font-size:1.08rem!important;line-height:1.25!important;font-weight:1000!important}.photoTap{font-size:.75rem!important;line-height:1!important;font-weight:1000!important;color:rgba(255,255,255,.82)!important;letter-spacing:.05em!important}.photoOverlay{display:none!important}.galleryDetail{position:sticky!important;top:104px!important;min-height:420px!important;border-radius:30px!important;background:linear-gradient(135deg,rgba(7,8,13,.94),rgba(18,24,35,.92))!important;color:#fff!important;overflow:hidden!important;box-shadow:0 24px 70px rgba(16,24,40,.20)!important;border:1px solid rgba(255,255,255,.08)!important}.galleryDetailImage{position:absolute!important;inset:0!important;opacity:.24!important;background-size:cover!important;background-position:center!important;transform:scale(1.02)!important;filter:saturate(1.05)!important}.galleryDetailBody{position:relative!important;z-index:1!important;padding:34px 34px 38px!important}.galleryDetailKicker{display:inline-flex!important;align-items:center!important;gap:8px!important;padding:6px 12px!important;border-radius:999px!important;background:rgba(255,255,255,.12)!important;color:#fff!important;font-size:.78rem!important;font-weight:1000!important;letter-spacing:.14em!important;margin-bottom:18px!important}.galleryDetailTitle{font-size:clamp(1.75rem,2.8vw,3.1rem)!important;line-height:1.18!important;font-weight:1000!important;letter-spacing:-.03em!important;margin:0 0 18px!important;text-shadow:0 4px 18px rgba(0,0,0,.45)!important}.galleryDetailTitle:after{content:"";display:block;width:88px;height:4px;border-radius:999px;background:var(--grad);margin-top:14px}.galleryDetailText{white-space:pre-line!important;font-size:clamp(1rem,1.28vw,1.18rem)!important;line-height:1.95!important;font-weight:850!important;color:#f2f4f7!important;text-shadow:0 3px 14px rgba(0,0,0,.42)!important}.galleryDetailClose{display:none!important}.galleryDetailEmpty{padding:34px;color:#fff;font-weight:900}.galleryDetail.fade{animation:galleryFade .42s cubic-bezier(.22,.61,.36,1)}@keyframes galleryFade{from{opacity:.72;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}body:has(.photo:hover),body:has(.photo.open){overflow:auto!important}@media(max-width:960px){.galleryStage{grid-template-columns:1fr!important}.gallery{grid-template-columns:1fr 1fr!important;grid-auto-rows:190px!important}.photo.big{grid-row:span 1!important}.galleryDetail{position:relative!important;top:auto!important;min-height:0!important}.galleryDetailBody{padding:28px 24px 30px!important}.galleryHint{font-size:.88rem}}@media(max-width:620px){.gallery{grid-template-columns:1fr!important;grid-auto-rows:230px!important}.galleryDetailTitle{font-size:1.75rem!important}.galleryDetailText{font-size:.98rem!important;line-height:1.85!important}}
+
 </style></head><body><script>
 /* Version20.9: remove old PWA/ServiceWorker caches so GitHub Pages always shows the newest HTML */
 (function(){
@@ -557,7 +486,7 @@ body:has(.photo:hover),body:has(.photo.open){overflow:auto!important}
 <section class="section" id="about"><div class="wrap"><p class="label">ABOUT</p><h2 class="title" id="aboutTitle"></h2><p class="text" id="aboutText"></p></div></section>
 <section class="section dark" id="program"><div class="wrap"><p class="label">PROGRAM</p><h2 class="title">活動内容</h2><p class="text" id="programLead"></p><div class="cards" id="programCards"></div></div></section>
 <section class="section gray" id="diary"><div class="wrap"><p class="label">DIARY</p><h2 class="title">活動日記</h2><p class="text" id="diaryLead"></p><div class="diary-grid" id="diaryGrid"></div></div></section>
-<section class="section" id="gallery"><div class="wrap"><p class="label">GALLERY</p><h2 class="title">活動イメージ</h2><p class="text galleryLead">写真にカーソルを合わせると、下に説明がふわっと表示されます。写真は崩さず、文章は読みやすいカードで表示します。</p><div class="gallery" id="galleryGrid"></div><div class="galleryDetail" id="galleryDetail" aria-live="polite"><div class="galleryDetailImage" id="galleryDetailImage"></div><div class="galleryDetailBody"><p class="galleryDetailLabel">ACTIVITY IMAGE</p><h3 id="galleryDetailTitle"></h3><p id="galleryDetailText"></p></div></div></div></section>
+<section class="section" id="gallery"><div class="wrap"><p class="label">GALLERY</p><h2 class="title">活動イメージ</h2><p class="galleryHint">写真をクリックすると、右側に説明が表示されます。カーソル移動では切り替わりません。</p><div class="galleryStage"><div class="gallery" id="galleryGrid"></div><aside class="galleryDetail" id="galleryDetail" aria-live="polite"></aside></div></div></section>
 <section class="section gray" id="schedule"><div class="wrap"><div class="scheduleHead"><div class="scheduleBg">SCHEDULE</div><p class="label">ACTIVITY SCHEDULE</p><h2 class="title">活動スケジュール</h2><p class="scheduleLead" id="scheduleLead"></p></div><div class="schedule" id="scheduleGrid"></div><div class="scheduleCtas" id="scheduleCtas"></div></div></section>
 <section class="section" id="staff"><div class="wrap"><p class="label" id="staffLabel">STAFF</p><h2 class="title" id="staffTitle">スタッフ募集</h2><div id="staffBanner"></div><div class="staffBody"><p class="text staffTextBlock" id="staffText"></p><a class="btn grad" id="staffLine" href="#" target="_blank">LINEで相談する</a></div></div></section>
 <section class="section gray" id="sponsor"><div class="wrap"><p class="label">SPONSOR</p><h2 class="title">スポンサー募集</h2><p class="text" id="sponsorText"></p><div class="sponsor-grid" id="sponsorGrid"></div></div></section>
@@ -573,40 +502,10 @@ const box=(url,fit)=>`<div class="imgbox"><img src="${esc(url)}" style="${fitSty
 function instagramBlock(url){const u=String(url||'').trim(); if(!u)return ''; return `<div class="instaFrame"><blockquote class="instagram-media" data-instgrm-permalink="${esc(u)}" data-instgrm-version="14"><div class="instagramFallback"><a href="${esc(u)}" target="_blank" rel="noopener">Instagramで投稿を見る</a></div></blockquote></div>`}
 function processInstagramEmbeds(){if(!document.querySelector('.instagram-media'))return; if(window.instgrm&&window.instgrm.Embeds){window.instgrm.Embeds.process();return;} if(!document.getElementById('instagram-embed-script')){const s=document.createElement('script');s.id='instagram-embed-script';s.async=true;s.src='https://www.instagram.com/embed.js';document.body.appendChild(s);}}
 function norm(d={}){const o={...defaults,...d}; ['slides','programs','gallery','diary','schedule','faq','sponsors'].forEach(k=>{if(!Array.isArray(o[k]))o[k]=defaults[k]||[]}); const isOldSchedule=(o.schedule||[]).some(v=>v&&(v.date||v.title)&&!v.days&&!v.main)||o.schedule.length!==5; if(isOldSchedule){o.schedule=structuredClone(defaults.schedule)}else{o.schedule=o.schedule.map((v,i)=>({days:v?.days||'',main:v?.main||'',area:v?.area||'',time:v?.time||'',detail:v?.detail||'',tag:v?.tag||'',theme:v?.theme||(['pink','pink','blue','blue','purple'][i]||'blue')}));} return o}
-
-function initGalleryDetail(items=[]){
-  const detail=document.getElementById('galleryDetail');
-  const title=document.getElementById('galleryDetailTitle');
-  const text=document.getElementById('galleryDetailText');
-  const image=document.getElementById('galleryDetailImage');
-  const cards=[...document.querySelectorAll('#galleryGrid .photo')];
-  if(!detail||!cards.length)return;
-  let active=-1;
-  const show=(idx)=>{
-    const item=items[idx]||{};
-    active=idx;
-    cards.forEach((card,i)=>card.classList.toggle('is-active',i===idx));
-    title.textContent=item.title||'';
-    text.textContent=item.text||'';
-    image.style.backgroundImage=`url('${String(item.url||'').replace(/'/g,"%27")}')`;
-    detail.classList.add('show');
-  };
-  cards.forEach((card,idx)=>{
-    card.addEventListener('mouseenter',()=>show(idx));
-    card.addEventListener('focus',()=>show(idx));
-    card.addEventListener('click',()=>show(idx));
-  });
-  show(0);
-}
-
 let timer;
 function render(raw={}){const data=norm(raw); document.title=data.seoTitle||defaults.seoTitle; document.querySelector('meta[name="description"]').content=data.seoDescription||defaults.seoDescription; document.querySelector('meta[property="og:title"]').content=data.seoTitle||defaults.seoTitle; document.querySelector('meta[property="og:description"]').content=data.seoDescription||defaults.seoDescription; ['heroCopy','heroLead','aboutTitle','aboutText','programLead','diaryLead','staffLabel','staffTitle','staffText','sponsorText','scheduleLead','newsLine'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=data[id]||''}); document.getElementById('line1').href=data.lineUrl;document.getElementById('line2').href=data.lineUrl;document.getElementById('staffLine').href=data.lineUrl;document.getElementById('staffLine').textContent=data.staffButton||'LINEで相談する';document.getElementById('mailBtn').href='mailto:'+data.mail; const st=document.getElementById('recruitStatus');st.textContent=data.recruitStatus;st.className='status '+(data.recruitStatus==='キャンセル待ち'?'wait':data.recruitStatus==='募集停止'?'stop':''); document.getElementById('viewCount').textContent='Views '+(data.views||0); const sb=data.staffImage&&data.staffImage.url?`<a class="staffBanner" href="${esc(data.lineUrl||'#')}" target="_blank"><img src="${esc(data.staffImage.url)}" loading="lazy" alt="${esc(data.staffTitle||'告知バナー')}"></a>`:'';document.getElementById('staffBanner').innerHTML=sb;
 const slides=document.getElementById('slides'); slides.innerHTML=(data.slides||[]).map((s,i)=>`<div class="slide ${i===0?'active':''}" style="background-image:url('${esc(s.url||s)}');background-position:${(s.fit?.x)||50}% ${(s.fit?.y)||50}%;transform:scale(${(s.fit?.scale)||1})"></div>`).join(''); clearInterval(timer);let si=0;timer=setInterval(()=>{const ss=[...document.querySelectorAll('.slide')]; if(!ss.length)return; ss[si]?.classList.remove('active'); si=(si+1)%ss.length; ss[si]?.classList.add('active');},4500);
-document.getElementById('programCards').innerHTML=(data.programs||[]).map(p=>`<article class="card">${box(p.image,p.fit)}<b>${esc(p.title)}</b><p>${esc(p.text)}</p></article>`).join('');
-const galleryItems=(data.gallery||[]);
-document.getElementById('galleryGrid').innerHTML=galleryItems.map((g,i)=>`<div class="photo ${i===0?'big':''}" tabindex="0" data-gallery-index="${i}">${box(g.url,g.fit)}<span class="photoCaption">${esc(g.title)}</span><div class="photoOverlay"><div class="photoText"><span class="photoTitle">${esc(g.title)}</span><span class="photoDesc">${esc(g.text||'')}</span></div></div></div>`).join('');
-initGalleryDetail(galleryItems);
-document.getElementById('diaryGrid').innerHTML=(data.diary||[]).slice(0,9).map(p=>{const ig=String(p.instagramUrl||'').trim(); if((p.type==='instagram'||ig)&&ig){return `<article class="diary-card instagram-diary">${instagramBlock(ig)}<div class="body"><time>${esc(p.date)}</time><h3>${esc(p.title)}</h3><p>${esc(p.body)}</p></div></article>`} return `<article class="diary-card">${box(p.image,p.fit)}<div class="body"><time>${esc(p.date)}</time><h3>${esc(p.title)}</h3><p>${esc(p.body)}</p></div></article>`}).join('')||'<p class="empty">活動日記はまだありません。</p>'; processInstagramEmbeds(); document.getElementById('scheduleGrid').innerHTML=(data.schedule||[]).map(s=>`<a class="day ${esc(s.theme||'blue')}" href="${esc(data.lineUrl||'#')}" target="_blank" aria-label="${esc((s.days||'')+'の体験相談をLINEでする')}"><span class="tag">${esc(s.tag||'SCHEDULE')}</span><div class="date">${esc(s.days||s.date)}</div><b>${esc(s.main||s.title)}</b><div class="area">${esc(s.area||s.place)}</div><div class="time">${esc(s.time)}</div><p class="detail">${esc(s.detail||'')}</p></a>`).join(''); document.getElementById('scheduleCtas').innerHTML=`<div class="scheduleCta"><div><b>${esc(data.ctaTitle||'')}</b><p>${esc(data.ctaText||'')}</p></div><div class="actions"><a class="btn grad" href="${esc(data.lineUrl||'#')}" target="_blank">${esc(data.ctaButton||'相談する')}</a></div></div><div class="scheduleCta secondary"><div><b>${esc(data.cta2Title||'')}</b><p>${esc(data.cta2Text||'')}</p></div><div class="actions"><a class="btn grad" href="${esc(data.lineUrl||'#')}" target="_blank">${esc(data.cta2Button||'相談する')}</a></div></div>`; document.getElementById('faqList').innerHTML=(data.faq||[]).map(f=>`<div class="qa"><b>Q. ${esc(f.q)}</b><p>A. ${esc(f.a)}</p></div>`).join(''); document.getElementById('sponsorGrid').innerHTML=(data.sponsors||[]).map(s=>`<article class="card">${s.image?box(s.image,s.fit):''}<b>${esc(s.name)}</b><p>${esc(s.text)}</p></article>`).join('')}
+document.getElementById('programCards').innerHTML=(data.programs||[]).map(p=>`<article class="card">${box(p.image,p.fit)}<b>${esc(p.title)}</b><p>${esc(p.text)}</p></article>`).join(''); const galleryItems=(data.gallery||[]); const galleryGrid=document.getElementById('galleryGrid'); const galleryDetail=document.getElementById('galleryDetail'); const setGalleryDetail=(idx=0)=>{const g=galleryItems[idx]||{}; if(!galleryDetail){return;} galleryDetail.classList.remove('fade'); void galleryDetail.offsetWidth; galleryDetail.classList.add('fade'); galleryDetail.innerHTML=g.title?`<div class="galleryDetailImage" style="background-image:url('${esc(g.url||'')}');background-position:${(g.fit?.x)||50}% ${(g.fit?.y)||50}%"></div><div class="galleryDetailBody"><span class="galleryDetailKicker">SELECTED IMAGE</span><h3 class="galleryDetailTitle">${esc(g.title)}</h3><p class="galleryDetailText">${esc(g.text||'')}</p></div>`:`<div class="galleryDetailEmpty">写真を選択してください。</div>`; galleryGrid?.querySelectorAll('.photo').forEach((el,n)=>el.classList.toggle('active',n===idx));}; galleryGrid.innerHTML=galleryItems.map((g,i)=>`<button type="button" class="photo ${i===0?'big':''} ${i===0?'active':''}" data-gallery-index="${i}" aria-label="${esc(g.title)}の説明を見る">${box(g.url,g.fit)}<span class="photoCaption"><strong>${esc(g.title)}</strong><span class="photoTap">クリックで説明</span></span></button>`).join(''); galleryGrid.querySelectorAll('[data-gallery-index]').forEach(btn=>{btn.addEventListener('click',()=>setGalleryDetail(Number(btn.dataset.galleryIndex)||0));btn.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();setGalleryDetail(Number(btn.dataset.galleryIndex)||0);}})}); setGalleryDetail(0); document.getElementById('diaryGrid').innerHTML=(data.diary||[]).slice(0,9).map(p=>{const ig=String(p.instagramUrl||'').trim(); if((p.type==='instagram'||ig)&&ig){return `<article class="diary-card instagram-diary">${instagramBlock(ig)}<div class="body"><time>${esc(p.date)}</time><h3>${esc(p.title)}</h3><p>${esc(p.body)}</p></div></article>`} return `<article class="diary-card">${box(p.image,p.fit)}<div class="body"><time>${esc(p.date)}</time><h3>${esc(p.title)}</h3><p>${esc(p.body)}</p></div></article>`}).join('')||'<p class="empty">活動日記はまだありません。</p>'; processInstagramEmbeds(); document.getElementById('scheduleGrid').innerHTML=(data.schedule||[]).map(s=>`<a class="day ${esc(s.theme||'blue')}" href="${esc(data.lineUrl||'#')}" target="_blank" aria-label="${esc((s.days||'')+'の体験相談をLINEでする')}"><span class="tag">${esc(s.tag||'SCHEDULE')}</span><div class="date">${esc(s.days||s.date)}</div><b>${esc(s.main||s.title)}</b><div class="area">${esc(s.area||s.place)}</div><div class="time">${esc(s.time)}</div><p class="detail">${esc(s.detail||'')}</p></a>`).join(''); document.getElementById('scheduleCtas').innerHTML=`<div class="scheduleCta"><div><b>${esc(data.ctaTitle||'')}</b><p>${esc(data.ctaText||'')}</p></div><div class="actions"><a class="btn grad" href="${esc(data.lineUrl||'#')}" target="_blank">${esc(data.ctaButton||'相談する')}</a></div></div><div class="scheduleCta secondary"><div><b>${esc(data.cta2Title||'')}</b><p>${esc(data.cta2Text||'')}</p></div><div class="actions"><a class="btn grad" href="${esc(data.lineUrl||'#')}" target="_blank">${esc(data.cta2Button||'相談する')}</a></div></div>`; document.getElementById('faqList').innerHTML=(data.faq||[]).map(f=>`<div class="qa"><b>Q. ${esc(f.q)}</b><p>A. ${esc(f.a)}</p></div>`).join(''); document.getElementById('sponsorGrid').innerHTML=(data.sponsors||[]).map(s=>`<article class="card">${s.image?box(s.image,s.fit):''}<b>${esc(s.name)}</b><p>${esc(s.text)}</p></article>`).join('')}
 render(defaults);
 try{const {initializeApp}=await import('https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js');const {getFirestore,doc,onSnapshot,setDoc,increment}=await import('https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js');const app=initializeApp(firebaseConfig);const db=getFirestore(app);onSnapshot(doc(db,'site','content'),s=>{if(s.exists())render(s.data())});if(!sessionStorage.ninjaView){sessionStorage.ninjaView=1;setDoc(doc(db,'site','content'),{views:increment(1)},{merge:true}).catch(()=>{})}}catch(e){console.warn(e)}
 </script></body></html>
