@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<!DOCTYPE html><html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0"><meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0">
 <title>NINJA AIRS｜滋賀県大津市のU15バスケットボールクラブ</title><meta name="description" content="NINJA AIRSは滋賀県大津市を中心に活動するU15バスケットボールクラブです。">
 <meta property="og:title" content="NINJA AIRS"><meta property="og:description" content="滋賀県大津市のU15バスケットボールクラブ"><meta property="og:image" content="assets/ninja-airs-logo.png">
 <style>
@@ -54,7 +54,35 @@
 .photoOverlay::-webkit-scrollbar-thumb{background:rgba(255,255,255,.32);border-radius:999px}
 @media(max-width:900px){.gallery{grid-auto-rows:300px!important}.photo.big{grid-row:span 1}.photoOverlay{padding:30px 24px!important}.photoTitle{font-size:1.35rem!important}.photoDesc{font-size:.92rem!important;line-height:1.75!important}.photoCaption{left:18px!important;bottom:18px!important;max-width:calc(100% - 36px)!important}}
 
-</style></head><body>
+
+/* v20.1 optimized gallery full hover: title always visible, description only on hover/tap, no close button */
+.gallery{grid-auto-rows:280px!important;gap:18px!important}
+.photo{position:relative!important;cursor:pointer!important;background:#eef1f5!important;box-shadow:0 16px 38px rgba(16,24,40,.08)!important;transition:transform .25s ease,box-shadow .25s ease!important;overflow:hidden!important;border-radius:26px!important}
+.photo.big{grid-row:span 2!important}
+.photo:hover,.photo.open{transform:translateY(-5px)!important;box-shadow:0 24px 60px rgba(16,24,40,.16)!important}
+.photo:after{display:none!important}
+.photo .imgbox img{filter:none!important;opacity:1!important;transition:transform .35s ease!important}
+.photo:hover .imgbox img,.photo.open .imgbox img{transform:scale(1.035)!important}
+.photoCaption{position:absolute!important;left:18px!important;right:auto!important;bottom:18px!important;z-index:2!important;display:inline-flex!important;max-width:calc(100% - 36px)!important;align-items:center!important;padding:10px 18px!important;border-radius:999px!important;background:rgba(7,8,13,.84)!important;color:#fff!important;font-weight:1000!important;font-size:1.05rem!important;line-height:1.25!important;text-shadow:0 2px 10px rgba(0,0,0,.45)!important;backdrop-filter:blur(8px)!important;transition:opacity .22s ease,transform .22s ease!important}
+.photo:hover .photoCaption,.photo.open .photoCaption{opacity:0!important;transform:translateY(8px)!important;pointer-events:none!important}
+.photoOverlay{position:absolute!important;inset:0!important;z-index:4!important;display:flex!important;align-items:flex-start!important;justify-content:flex-start!important;padding:clamp(24px,3vw,46px)!important;background:rgba(0,0,0,.80)!important;color:#fff!important;opacity:0!important;transition:opacity .24s ease!important;overflow-y:auto!important;pointer-events:none!important}
+.photo:hover .photoOverlay,.photo.open .photoOverlay{opacity:1!important}
+.photoText{width:100%!important;max-width:100%!important;transform:none!important;padding:0!important}
+.photoTitle{display:block!important;margin:0 0 14px 0!important;padding:0 0 10px 0!important;color:#fff!important;font-size:clamp(1.35rem,2.4vw,2rem)!important;font-weight:1000!important;line-height:1.25!important;text-shadow:0 3px 16px rgba(0,0,0,.7)!important;border-bottom:3px solid var(--pink)!important;width:max-content!important;max-width:100%!important}
+.photoDesc{display:block!important;white-space:pre-line!important;font-size:clamp(.92rem,1.25vw,1.12rem)!important;line-height:1.9!important;font-weight:900!important;color:#fff!important;text-shadow:0 3px 16px rgba(0,0,0,.66)!important;max-height:none!important}
+.photoOverlay::-webkit-scrollbar{width:8px}.photoOverlay::-webkit-scrollbar-thumb{background:rgba(255,255,255,.32);border-radius:999px}
+@media(max-width:900px){.gallery{grid-template-columns:1fr!important;grid-auto-rows:300px!important}.photo.big{grid-row:span 1!important}.photoOverlay{padding:28px 24px!important}.photoTitle{font-size:1.35rem!important}.photoDesc{font-size:.92rem!important;line-height:1.75!important}.photoCaption{font-size:.95rem!important}}
+</style></head><body><script>
+/* Version20.1: remove old PWA/ServiceWorker caches so GitHub Pages always shows the newest HTML */
+(function(){
+  try{
+    if('serviceWorker' in navigator){
+      navigator.serviceWorker.getRegistrations().then(function(regs){ regs.forEach(function(r){ r.unregister(); }); }).catch(function(){});
+    }
+    if(window.caches){ caches.keys().then(function(keys){ keys.forEach(function(k){ caches.delete(k); }); }).catch(function(){}); }
+  }catch(e){}
+})();
+</script>
 <nav class="nav"><div class="wrap navin"><a class="brand" href="#top"><img src="assets/ninja-airs-logo-transparent.png" alt="NINJA AIRS"><span>NINJA AIRS<small>U15 CLUB</small></span></a><ul><li><a href="#about">NINJA AIRS U15について</a></li><li><a href="#program">活動内容</a></li><li><a href="#diary">日記</a></li><li><a href="#schedule">練習日</a></li><li><a href="#faq">FAQ</a></li><li><a href="#sponsor">スポンサー</a></li><li><a class="trial" href="#contact">体験申込み</a></li></ul></div></nav>
 <header class="hero" id="top"><div class="slides" id="slides"></div><div class="wrap hero-content"><div><p class="eyebrow">U15 BASKETBALL CLUB</p><h1>NINJA<span class="grad">AIRS</span></h1><p class="copy" id="heroCopy"></p><p class="lead" id="heroLead"></p><div class="actions"><a class="btn primary" id="line1" href="#" target="_blank">無料体験に申し込む →</a><a class="btn" href="#program">活動内容を見る →</a></div></div><div class="hero-logo"><img src="assets/ninja-airs-logo-transparent.png" alt="NINJA AIRS"></div></div></header>
 <div class="ticker"><div class="wrap"><span class="status" id="recruitStatus"></span><b id="newsLine"></b><span class="views" id="viewCount">Views --</span></div></div>
