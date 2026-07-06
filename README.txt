@@ -1,14 +1,13 @@
-NINJA AIRS CMS Version 20.11 COMPLETE
+NINJA AIRS CMS Version 20.13 COMPLETE
 
 修正内容:
-- 画像生成なし。HTML/CSS/JSのみ修正。
-- 活動イメージはホバー切替を廃止し、クリック選択式に変更。
-- 写真にカーソルを通しても説明が勝手に切り替わらない。
-- 選択した写真の説明を右側の詳細パネルに固定表示。
-- 文章は左寄せ、全文表示。
-- 写真カードはコンパクトに維持。
-- スマホでは画像一覧の下に説明カードを表示。
-- 既存機能は削除せず維持。
+- 画像生成なし。HTML/CSSのみ修正。
+- 活動イメージの原型である5枚グリッドを復元。
+- クリック式を維持し、説明は右側ではなく下に固定表示。
+- カーソル移動で説明が切り替わらない。
+- 画像は5項目すべて表示。
+- 選択中の画像はピンクの枠で判別可能。
+- 説明文は左寄せで全文表示。
 
 アップロードするファイル:
 - index.html
@@ -18,4 +17,4 @@ NINJA AIRS CMS Version 20.11 COMPLETE
 - README.txt
 
 確認URL:
-https://ninja326.github.io/NINJAAIRSU15/index.html?ver=20-11
+https://ninja326.github.io/NINJAAIRSU15/index.html?ver=20-13
