@@ -69,7 +69,27 @@ function filteredAssets(){const used=collectUsed(); const q=($('assetSearch')?.v
 function renderAssets(){const files=filteredAssets(); $('assetList').innerHTML=files.map(x=>{const preview=x.download_url||x.pageUrl; const checked=selectedAssets.has(x.path)?'checked':''; const badges=x.usedBy.length?x.usedBy.map(u=>`<span class="usedBadge">${esc(u)}</span>`).join(''):'<span class="unusedBadge">未使用</span>';return `<div class="asset ${checked?'selected':''}"><input class="check assetCheck" type="checkbox" data-path="${esc(x.path)}" ${checked}><img class="openPreview" data-url="${preview}" data-name="${esc(x.name)}" src="${preview}" onerror="this.style.opacity=.15"><div class="assetName">${esc(x.name)}</div><p class="muted small">${Math.round((x.size||0)/1024)} KB</p><div>${badges}</div><input value="${x.pageUrl}" readonly><div class="actions"><button class="btn light copyUrl" data-url="${x.pageUrl}">URLコピー</button><a class="btn light" href="${x.pageUrl}" target="_blank">表示</a><button class="btn red deleteOne" data-path="${esc(x.path)}" data-sha="${esc(x.sha)}" data-name="${esc(x.name)}">削除</button></div></div>`}).join('')||'<p class="muted">画像がありません。</p>'; qsa('.assetCheck').forEach(c=>c.onchange=()=>{c.checked?selectedAssets.add(c.dataset.path):selectedAssets.delete(c.dataset.path);renderAssets()});qsa('.copyUrl').forEach(b=>b.onclick=async()=>{await navigator.clipboard.writeText(b.dataset.url);b.textContent='コピー済み'});qsa('.openPreview').forEach(img=>img.onclick=()=>openModal(img.dataset.url,img.dataset.name));qsa('.deleteOne').forEach(b=>b.onclick=()=>deleteFiles([{path:b.dataset.path,sha:b.dataset.sha,name:b.dataset.name}]));}
 function openModal(url,name){$('modalImg').src=url;$('modalTitle').textContent=name||'画像プレビュー';$('imageModal').classList.add('open')} $('closeModal').onclick=()=>$('imageModal').classList.remove('open'); $('imageModal').onclick=e=>{if(e.target.id==='imageModal')$('imageModal').classList.remove('open')};
 async function loadAssets(){try{const path=$('ghPath').value.replace(/^\/+|\/+$/g,'')||'assets/uploads';const list=await gh(path);assetCache=(Array.isArray(list)?list:[]).filter(x=>x.type==='file'&&/\.(png|jpe?g|gif|webp)$/i.test(x.name));renderAssets();msg('imageMsg',`GitHubと同期しました（${assetCache.length}件）`)}catch(e){msg('imageMsg','画像一覧の読み込み失敗: '+e.message,'bad')}} $('reloadAssets').onclick=loadAssets;
-async function deleteFiles(items){if(!items.length)return; const names=items.map(x=>x.name).join('\n'); if(!confirm(`以下の画像をGitHubから削除します。\n\n${names}\n\n使用中の画像を削除すると公開サイトで表示されなくなります。`))return; try{for(const it of items){await gh(it.path,{method:'DELETE',body:JSON.stringify({message:`delete ${it.name}`,sha:it.sha,branch:BRANCH})});selectedAssets.delete(it.path)}msg('imageMsg','削除しました。画像一覧を再読込します。');await loadAssets()}catch(e){msg('imageMsg','削除失敗: '+e.message,'bad')}}
+async function deleteFiles(items){
+  if(!items.length)return;
+  const names=items.map(x=>x.name).join('\n');
+  if(!confirm(`以下の画像をGitHubから削除します。\n\n${names}\n\n使用中の画像を削除すると公開サイトで表示されなくなります。`))return;
+  const deleting=new Set(items.map(x=>x.path));
+  try{
+    msg('imageMsg','削除中です…','warn');
+    for(const it of items){
+      await gh(it.path,{method:'DELETE',body:JSON.stringify({message:`delete ${it.name}`,sha:it.sha,branch:BRANCH})});
+      selectedAssets.delete(it.path);
+    }
+    // GitHub Pages/APIの反映待ちで古い一覧が返る場合があるため、まず画面上の一覧から即時削除する
+    assetCache=assetCache.filter(x=>!deleting.has(x.path));
+    renderAssets();
+    msg('imageMsg','削除しました。画面にも反映済みです。GitHub Pagesの実ファイル反映には少し時間がかかる場合があります。');
+    // 少し遅らせてGitHubと再同期（古いキャッシュで復活表示されるのを防ぐ）
+    setTimeout(()=>loadAssets().catch(()=>{}),2500);
+  }catch(e){
+    msg('imageMsg','削除失敗: '+e.message,'bad')
+  }
+}
 $('assetSearch')?.addEventListener('input',renderAssets);$('assetSort')?.addEventListener('change',renderAssets);$('assetFilter')?.addEventListener('change',renderAssets);$('selectUnused').onclick=()=>{const used=collectUsed();filteredAssets().forEach(x=>{if(!used[x.path])selectedAssets.add(x.path)});renderAssets()};$('deleteSelected').onclick=()=>deleteFiles(assetCache.filter(x=>selectedAssets.has(x.path))).catch(e=>msg('imageMsg','削除失敗: '+e.message,'bad'));
 const {initializeApp}=await import('https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js'); const {getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut,onAuthStateChanged}=await import('https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js'); const {getFirestore,doc,getDoc,setDoc,serverTimestamp}=await import('https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js'); const app=initializeApp(firebaseConfig), auth=getAuth(app), db=getFirestore(app);
 $('loginMode').onclick=()=>{mode='login';$('authBtn').textContent='ログイン'};$('regMode').onclick=()=>{mode='register';$('authBtn').textContent='初回管理者登録'};$('authBtn').onclick=async()=>{try{const email=$('email').value.trim();if(mode==='register'){if(!isAdmin(email))throw new Error('許可された管理者メールではありません');await createUserWithEmailAndPassword(auth,email,$('password').value)}else await signInWithEmailAndPassword(auth,email,$('password').value)}catch(e){msg('loginMsg','ログイン/登録失敗: '+(e.message||e.code),'bad')}};$('logoutBtn').onclick=()=>signOut(auth);
