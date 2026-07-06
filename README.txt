@@ -1,4 +1,4 @@
-NINJA AIRS CMS 完成版 v11
+NINJA AIRS CMS 完成版 v11 Complete
 
 公開ページ:
 - index.html
@@ -16,43 +16,39 @@ https://ninja326.github.io/NINJAAIRSU15/admin.html
 - Firebase Storageは使いません。
 - 画像はGitHubの assets/uploads/ に保存します。
 - Firestoreには文章と画像URLだけ保存します。
-- そのため Firestore 1MB制限に画像で引っかかりません。
+- Firestore 1MB制限に画像で引っかからない構成です。
+
+Version11 Complete 追加内容:
+- Googleフォト風の画像管理画面
+- 大きなサムネイル表示
+- 選択した写真のプレビュー
+- ドラッグ&ドロップアップロード
+- 同じファイル名の上書き保存
+- 未使用画像の自動検出
+- 一括選択・一括削除
+- 使用箇所表示
+- URLコピー
+- 拡大表示モーダル
+- 検索・並び替え・使用中/未使用フィルター
+- GitHubとの同期
+- 画像管理から各編集欄へ「この画像を使用」
+- 旧Base64データと旧文字列データの自動変換
+- トップ画像・活動内容・活動日記・活動イメージ・スポンサー画像の形式統一
+
+GitHubへアップロードするファイル:
+- index.html
+- admin.html
+- firebase-config.js
+- README.txt
+- assets フォルダ（既存のまま）
 
 画像アップロード:
 1. GitHubでPersonal Access Tokenを作成
 2. 権限は対象リポジトリ NINJA326/NINJAAIRSU15 の Contents Read/Write のみにする
 3. 管理画面 > 画像管理 > GitHub Token に貼る
 4. Token設定を保存
-5. 画像をドラッグ&ドロップしてGitHubへアップロード
+5. GitHubと同期
+6. 画像をドラッグ&ドロップしてGitHubへアップロード
 
-アップロード先:
-assets/uploads/
-
-管理画面でできること:
-- 基本情報編集
-- トップ画像スライドショー編集
-- 活動内容編集
-- 活動日記編集
-- 活動イメージ編集
-- スケジュール編集
-- FAQ編集
-- スポンサー募集・スポンサー一覧編集
-- SEO編集
-- 画像の拡大率・横位置・縦位置調整
-- 画像管理からGitHubへ直接アップロード
-
-GitHubへアップロードするファイル:
-- index.html
-- admin.html
-- firebase-config.js
-- assets フォルダ
-- README.txt
-
-
-Version11 修正内容:
-- 旧Base64文字列データを読み込み時に自動変換して管理画面エラーを防止
-- トップ画像・活動内容・日記・活動イメージ・スポンサー画像の保存形式をURLオブジェクトへ統一
-- 選択した写真のプレビュー表示を追加
-- GitHubアップロード後の写真一覧プレビューをdownload_urlで安定表示
-- URLコピー・表示ボタンを追加
-- Firestoreには画像本体ではなくURLだけ保存
+注意:
+Tokenは秘密情報です。チャットやスクリーンショットには表示しないでください。
