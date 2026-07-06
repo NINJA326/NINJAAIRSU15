@@ -962,8 +962,77 @@ body:has(#gallery .photo.open){overflow:auto!important;}
 @media(max-width:1050px){#gallery .galleryStage{grid-template-columns:1fr!important}#gallery .galleryDetail{position:relative!important;top:auto!important;min-height:auto!important}#gallery .gallery{grid-template-columns:1fr 1fr!important;grid-auto-rows:210px!important}#gallery .photo.big{grid-row:span 1!important}}
 @media(max-width:700px){#gallery .gallery{grid-template-columns:1fr!important;grid-auto-rows:220px!important}#gallery .galleryDetail{padding:24px!important;border-radius:24px!important}#gallery .galleryDetailTitle{font-size:1.65rem!important}#gallery .galleryDetailText{font-size:.95rem!important;line-height:1.8!important}}
 
+
+
+/* v20.19 FINAL: 活動イメージ hover indicator only - no image/card motion */
+#gallery .photo,
+#gallery .photo:hover,
+#gallery .photo:focus-visible,
+#gallery .photo.active{
+  transform:none!important;
+  translate:none!important;
+  scale:1!important;
+  transition:outline-color .22s ease, box-shadow .22s ease, filter .22s ease!important;
+}
+#gallery .photo .imgbox,
+#gallery .photo:hover .imgbox,
+#gallery .photo:focus-visible .imgbox,
+#gallery .photo.active .imgbox{
+  transform:none!important;
+  transition:none!important;
+}
+#gallery .photo .imgbox img,
+#gallery .photo:hover .imgbox img,
+#gallery .photo:focus-visible .imgbox img,
+#gallery .photo.active .imgbox img{
+  transform:none!important;
+  filter:none!important;
+  opacity:1!important;
+  transition:none!important;
+}
+#gallery .photo:hover,
+#gallery .photo:focus-visible{
+  outline:4px solid rgba(24,185,255,.55)!important;
+  outline-offset:0!important;
+  box-shadow:0 12px 30px rgba(16,24,40,.08), 0 0 0 7px rgba(24,185,255,.10)!important;
+}
+#gallery .photo.active{
+  outline:4px solid rgba(255,59,173,.78)!important;
+  outline-offset:0!important;
+  box-shadow:0 12px 30px rgba(16,24,40,.08), 0 0 0 7px rgba(255,59,173,.13)!important;
+}
+#gallery .photo::before{
+  content:""!important;
+  position:absolute!important;
+  inset:0!important;
+  z-index:2!important;
+  pointer-events:none!important;
+  border-radius:inherit!important;
+  background:rgba(255,255,255,0)!important;
+  transition:background .22s ease!important;
+}
+#gallery .photo:hover::before,
+#gallery .photo:focus-visible::before{
+  background:rgba(24,185,255,.10)!important;
+}
+#gallery .photo.active::before{
+  background:rgba(255,59,173,.08)!important;
+}
+#gallery .photo:hover .photoCaption,
+#gallery .photo:focus-visible .photoCaption,
+#gallery .photo.active .photoCaption{
+  transform:none!important;
+  opacity:1!important;
+}
+#gallery .photo .photoCaption{
+  z-index:3!important;
+}
+#gallery .photo::after{
+  z-index:1!important;
+}
+
 </style></head><body><script>
-/* Version20.18: remove gallery guide text and public view counter */
+/* Version20.19: remove gallery guide text and public view counter */
 (function(){
   try{
     if('serviceWorker' in navigator){
