@@ -55,7 +55,7 @@
 @media(max-width:900px){.gallery{grid-auto-rows:300px!important}.photo.big{grid-row:span 1}.photoOverlay{padding:30px 24px!important}.photoTitle{font-size:1.35rem!important}.photoDesc{font-size:.92rem!important;line-height:1.75!important}.photoCaption{left:18px!important;bottom:18px!important;max-width:calc(100% - 36px)!important}}
 
 
-/* v20.2 optimized gallery full hover: title always visible, description only on hover/tap, no close button */
+/* v20.3 optimized gallery full hover: title always visible, description only on hover/tap, no close button */
 .gallery{grid-auto-rows:280px!important;gap:18px!important}
 .photo{position:relative!important;cursor:pointer!important;background:#eef1f5!important;box-shadow:0 16px 38px rgba(16,24,40,.08)!important;transition:transform .25s ease,box-shadow .25s ease!important;overflow:hidden!important;border-radius:26px!important}
 .photo.big{grid-row:span 2!important}
@@ -72,8 +72,33 @@
 .photoDesc{display:block!important;white-space:pre-line!important;font-size:clamp(.92rem,1.25vw,1.12rem)!important;line-height:1.9!important;font-weight:900!important;color:#fff!important;text-shadow:0 3px 16px rgba(0,0,0,.66)!important;max-height:none!important}
 .photoOverlay::-webkit-scrollbar{width:8px}.photoOverlay::-webkit-scrollbar-thumb{background:rgba(255,255,255,.32);border-radius:999px}
 @media(max-width:900px){.gallery{grid-template-columns:1fr!important;grid-auto-rows:300px!important}.photo.big{grid-row:span 1!important}.photoOverlay{padding:28px 24px!important}.photoTitle{font-size:1.35rem!important}.photoDesc{font-size:.92rem!important;line-height:1.75!important}.photoCaption{font-size:.95rem!important}}
+
+
+/* v20.3 gallery hover full-screen reading mode
+   - normal: title only
+   - hover/tap: card expands to almost full browser area and shows full description
+   - mouse leave / tap again: returns to original */
+.gallery{grid-auto-rows:280px!important;gap:18px!important}
+.photo{position:relative!important;cursor:pointer!important;background:#eef1f5!important;box-shadow:0 16px 38px rgba(16,24,40,.08)!important;transition:transform .25s ease,box-shadow .25s ease!important;overflow:hidden!important;border-radius:26px!important}
+.photo.big{grid-row:span 2!important}
+.photo:after{display:none!important}
+.photo .imgbox img{filter:none!important;opacity:1!important;transition:transform .35s ease!important}
+.photoCaption{position:absolute!important;left:18px!important;right:auto!important;bottom:18px!important;z-index:2!important;display:inline-flex!important;max-width:calc(100% - 36px)!important;align-items:center!important;padding:10px 18px!important;border-radius:999px!important;background:rgba(7,8,13,.84)!important;color:#fff!important;font-weight:1000!important;font-size:1.05rem!important;line-height:1.25!important;text-shadow:0 2px 10px rgba(0,0,0,.45)!important;backdrop-filter:blur(8px)!important;transition:opacity .22s ease,transform .22s ease!important}
+.photoOverlay{position:absolute!important;inset:0!important;z-index:4!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:clamp(26px,4vw,64px)!important;background:rgba(0,0,0,.84)!important;color:#fff!important;opacity:0!important;transition:opacity .20s ease!important;overflow-y:auto!important;pointer-events:none!important}
+.photoText{width:min(100%,1050px)!important;max-width:100%!important;transform:none!important;padding:0!important;margin:auto!important}
+.photoTitle{display:block!important;margin:0 0 20px 0!important;padding:0 0 12px 0!important;color:#fff!important;font-size:clamp(1.7rem,4.2vw,4.2rem)!important;font-weight:1000!important;line-height:1.18!important;text-shadow:0 3px 18px rgba(0,0,0,.70)!important;border-bottom:4px solid var(--pink)!important;width:max-content!important;max-width:100%!important}
+.photoDesc{display:block!important;white-space:pre-line!important;font-size:clamp(1.05rem,2.05vw,2rem)!important;line-height:1.85!important;font-weight:900!important;color:#fff!important;text-shadow:0 3px 18px rgba(0,0,0,.70)!important;max-height:none!important}
+.photoOverlay::-webkit-scrollbar{width:8px}.photoOverlay::-webkit-scrollbar-thumb{background:rgba(255,255,255,.32);border-radius:999px}
+.photo:hover,.photo.open{position:fixed!important;left:4vw!important;right:4vw!important;top:96px!important;bottom:36px!important;width:auto!important;height:auto!important;z-index:9999!important;grid-row:auto!important;transform:none!important;box-shadow:0 32px 90px rgba(0,0,0,.45)!important;border-radius:30px!important}
+.photo:hover .imgbox,.photo.open .imgbox{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;border-radius:0!important;aspect-ratio:auto!important;margin:0!important}
+.photo:hover .imgbox img,.photo.open .imgbox img{transform:scale(1.02)!important}
+.photo:hover .photoCaption,.photo.open .photoCaption{opacity:0!important;transform:translateY(8px)!important;pointer-events:none!important}
+.photo:hover .photoOverlay,.photo.open .photoOverlay{opacity:1!important}
+body:has(.photo:hover),body:has(.photo.open){overflow:hidden}
+@media(max-width:900px){.gallery{grid-template-columns:1fr!important;grid-auto-rows:300px!important}.photo.big{grid-row:span 1!important}.photo:hover,.photo.open{left:14px!important;right:14px!important;top:86px!important;bottom:18px!important}.photoOverlay{padding:28px 24px!important;align-items:flex-start!important}.photoTitle{font-size:1.8rem!important}.photoDesc{font-size:1.05rem!important;line-height:1.75!important}.photoCaption{font-size:.95rem!important}}
+
 </style></head><body><script>
-/* Version20.2: remove old PWA/ServiceWorker caches so GitHub Pages always shows the newest HTML */
+/* Version20.3: remove old PWA/ServiceWorker caches so GitHub Pages always shows the newest HTML */
 (function(){
   try{
     if('serviceWorker' in navigator){
