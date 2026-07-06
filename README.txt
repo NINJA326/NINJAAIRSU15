@@ -1,14 +1,14 @@
-NINJA AIRS CMS Version 20.15 CHECKED FIX
+NINJA AIRS CMS Version 20.16 COMPLETE
 
 修正内容:
-- 画像生成なし。HTML/CSS/JSのみ修正。
-- 活動イメージ5項目が表示されるように復元。
-- クリック式の説明表示を修正。カーソル移動では切り替わりません。
-- 説明文は右側の固定パネルに表示。
-- 初期状態でも1枚目の説明が表示されます。
-- 過去バージョンの競合CSSに負けないよう、最終CSSで上書き。
-- renderGalleryClick未定義エラーを修正。
-- 活動日記の画像を小さくし、最大12件を見やすく表示。
+- 画像生成なし。HTML/CSSのみ修正。
+- 活動イメージはクリック式のまま維持。
+- カーソルを合わせても画像が大きく動かないよう修正。
+- 選択中の画像だけピンクの枠線で分かるように修正。
+- 5項目の原型を維持。
+- 説明文は右側固定表示。
+- 管理画面・公開画面のバージョン表記を20.16.0へ更新。
+- sw.jsのキャッシュリセットも20.16へ更新。
 
 アップロードするファイル:
 - index.html
@@ -18,4 +18,5 @@ NINJA AIRS CMS Version 20.15 CHECKED FIX
 - README.txt
 
 確認URL:
-https://ninja326.github.io/NINJAAIRSU15/index.html?ver=20-15
+https://ninja326.github.io/NINJAAIRSU15/index.html?ver=20-16
+https://ninja326.github.io/NINJAAIRSU15/admin.html?ver=20-16
